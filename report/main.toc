@@ -1,0 +1,25 @@
+\contentsline {section}{\numberline {1}Đặc tả dự án}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Bối cảnh dự án}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Mục tiêu - Phạm vi dự án}{3}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Mục tiêu}{3}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Phạm vi dự án}{3}{subsubsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.3}Các bên liên quan}{4}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Yêu cầu}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Yêu cầu chức năng}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Yêu cầu phi chức năng}{6}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Lược đồ trường hợp sử dụng (Use-case diagram)}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Sơ đồ tổng quan}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Mô tả chi tiết các trường hợp sử dụng}{8}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Kiểm soát vào/ra thành viên của trường (mem\_io)}{8}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Xử lý ra/vào cho khách (guest\_io)}{10}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Thanh toán phí gửi xe đối với thành viên (mem\_pay)}{12}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Thanh toán phí gửi xe đối với khách vãng lai (guest\_pay)}{14}{subsubsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.5}Quản lý quyền hạn, chi phí gửi xe và truy xuất dữ liệu (ad\_pri)}{16}{subsubsection.3.2.5}%
+\contentsline {subsubsection}{\numberline {3.2.6}Kiểm soát số lượng và vị trí chỗ trống (iot)}{17}{subsubsection.3.2.6}%
+\contentsline {subsubsection}{\numberline {3.2.7}Xử lý sự cố đặc biệt tại bãi xe (spec\_occ)}{18}{subsubsection.3.2.7}%
+\contentsline {paragraph}{\numberline {3.2.7.a}Kích hoạt chế độ khẩn cấp (spec\_occ\_1)}{19}{paragraph.3.2.7.1}%
+\contentsline {paragraph}{\numberline {3.2.7.b} Giải quyết lỗi thanh toán (spec\_occ\_2)}{20}{paragraph.3.2.7.2}%
+\contentsline {paragraph}{\numberline {3.2.7.c} Giải quyết quên thẻ định danh (spec\_occ\_3)}{21}{paragraph.3.2.7.3}%
+\contentsline {paragraph}{\numberline {3.2.7.d} Giải quyết mất vé gửi xe (spec\_occ\_4)}{22}{paragraph.3.2.7.4}%
+\contentsline {paragraph}{\numberline {3.2.7.e} Giải quyết thẻ quá hạn, không thanh toán phí (spec\_occ\_5)}{23}{paragraph.3.2.7.5}%
+\contentsline {paragraph}{\numberline {3.2.7.f}Mở barrier thủ công (spec\_occ\_6)}{23}{paragraph.3.2.7.6}%

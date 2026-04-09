@@ -1,0 +1,43 @@
+Stakeholders: người dùng (sinh viên - cán bộ - khách), nhân sự bãi xe, quản trị viên, HCMUT_SSO, HCMUT_DATACORE, BKPay
+
+Objects: - Phân biệt chỗ để xe cán bộ - ng còn lại
+	 - Quản lý số lượng chỗ đỗ, thông báo về số lượng chỗ trống 
+	 - Bền bỉ, dễ bảo dưỡng và nâng cấp
+	 - Hệ thống thu phí gửi xe tự động (Quẹt theo mssv - mscb -> lúc vào bãi thì quẹt thẻ sv)
+	 - Thu phí tại chỗ cho khách vãng lai và trường hợp ngoại lệ (mấy người ngu đi đ mang thẻ)
+	 - Log (Thời gian vào - ra, nhân sự tại thời điểm, biển số xe) - nằm ở hệ thống
+	 - Log cá nhân (Thời gian vào - ra)
+	 - Hệ thống an toàn và chỉ dẫn sử dụng cảm biến IoT - related
+
+Scopes: - Không gian: Toàn bộ bãi đỗ xe trong trường, liên kết với HCMUT_DATACORE, HCMUT_SSO, hệ thống IoT và cổng thanh toán. Không bao gồm các bãi đỗ xe ngoài trường
+	- Thời gian: 5h - 22h tất cả các ngày, không giữ xe qua đêm.
+
+Functional
+- mem_io Xử lý ra/vào cho các thành viên của trường (Xác thực qua HCMUT_SSO, truy cập qua HCMUT_DATACORE)
+- guest_io Xử lý ra/vào cho khách (Phát thẻ xe tại chỗ)
+- mem_pay Thanh toán phí gửi xe đối với thành viên trong trường (Hệ thống sẽ kết nối với BKPay để xử lý, thành viên có thể lựa chọn đổi gói hoặc hủy gói)
+- guest_pay Thanh toán phí gửi xe cho khách (Chuyển khoản qua cổng BKPay, nhân sự bãi xe thu tiền mặt)
+- ad_pri Quản lý quyền hạn và chi phí gửi xe, truy cập dữ liệu tức thời (Quyền quản trị viên chỉnh sửa định danh cá nhân, chi phí gửi xe hàng tháng, quý, năm...) + iot Kiểm soát về số lượng và vị trí chỗ trống mỗi 1 giây / 1 lần
+- spec_occ Xử lý trường hợp đặc biệt tại bãi xe (Mở barrier thủ công đối với các trường hợp đặc biệt [chưa thanh toán phí...], thu phí gửi xe, sự cố cháy nổ)
+Non-interactive functional
+- Thanh toán tự động phí gửi xe theo chu kỳ, giả định là ngày 5
+- Thông báo tự động gia hạn trước 3 ngày bằng thông báo qua mail
+Non-functional requirements
+- Cảnh báo sự cố đang xảy ra (cháy)
+- Xử lý cục bộ khi bị mất mạng (xác thực qua SSO, lưu log cục bộ...)
+- Thời gian xử lý một trường hợp vào/ra không quá 3.6 giây
+- Duy trì 99% khả năng xử lý trong thời gian hoạt động
+- Luôn yêu cầu xác thực từ các quản trị viên và nhân sự
+- Cập nhật lên HCMUT_DATACORE mỗi 24h về quyền truy cập bãi xe (định danh cá nhân và các thuê bao) và các log cục bộ
+
+Nguyên: Use-case diagram for the whole system
+Use-case scenario
+Hoàng: guest_pay
+Sơn: guest_io
+Phú: mem_pay
+Phong: ad_pri + iot
+Phúc: spec_occ
+Thịnh: mem_io
+
+Nộp bằng .docx hoặc .txt, có thể .tex (càng tốt)
+Hạn chót: 8/3 23h55

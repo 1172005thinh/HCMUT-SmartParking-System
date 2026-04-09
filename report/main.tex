@@ -1,0 +1,140 @@
+\documentclass[13pt, a4paper]{article}
+\usepackage[utf8]{vietnam}
+\usepackage{amssymb,gensymb,textcomp} 
+\usepackage{array,multicol,multirow,siunitx,tabularx}
+\usepackage{graphicx} 
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{lipsum}
+\usepackage{enumerate}
+\usepackage{indentfirst}
+\usepackage{amsmath} 
+\usepackage{listings}
+\usepackage{diagbox}
+\usepackage{matlab-prettifier}
+\usepackage{xcolor}
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\usepackage{titlesec}
+\usepackage{amsfonts} 
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{
+    font=small,           
+    labelfont=bf,        
+    labelsep=colon,       
+    justification=centering,
+}
+
+% Cho phép đánh số đến cấp thứ 3
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+
+% Định dạng lại cách hiển thị của paragraph thành: số_trước.a
+\renewcommand{\theparagraph}{\thesubsubsection.\alph{paragraph}}
+
+% Tùy chỉnh để tiêu đề paragraph xuống dòng (tùy chọn)
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {-3.25ex \@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries}}
+\makeatother
+
+\usepackage{rotating}
+\usepackage{tikz}
+\usepackage[colorlinks = true,
+            linkcolor = black,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+\usepackage{enumitem}
+\usepackage[left=2.3cm,right=2cm,top=2cm,bottom=2.5cm]{geometry} 
+\usepackage{scrextend}
+\usepackage{algorithm2e}
+\usepackage{etoolbox}
+\usepackage{ragged2e}
+\usepackage{minted}
+\usepackage{lastpage}
+\changefontsizes[23pt]{13pt}
+\usepackage{fancyhdr}
+\usepackage{tikz,tkz-tab}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsthm}
+\usepackage{xurl}
+\usepackage{commath}
+\usepackage{framed}
+\usepackage{commath}
+\usepackage{framed}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\setlist[enumerate]{leftmargin=*, itemsep=0.5cm}
+% Cấu hình cho listings
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    frame=single,
+    breaklines=true,
+    backgroundcolor=\color{light-gray},
+    captionpos=b
+}
+\renewcommand{\lstlistingname}{}
+\usepackage{listings}
+\DeclareCaptionFormat{listing}{\centering\normalsize#3}
+\usepackage{titlesec}
+\usepackage{url}
+\usepackage{anyfontsize}
+\setlength{\headheight}{38.2pt}
+\setlength{\headsep}{20pt}
+\setlength{\footskip}{30pt}
+\renewcommand{\footrulewidth}{0.4pt} 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % clear all header fields
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(15,15)(0,0)
+    \put(0,-8){\includegraphics[width=8.7mm, height=8.7mm]{picture/logobk.png}}
+   \end{picture}&
+	\begin{tabular}{l}
+		\textbf{\bf \ttfamily TRƯỜNG ĐẠI HỌC BÁCH KHOA - ĐHQG-HCM}
+             \\[-1.4ex] \textbf{\bf \ttfamily KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH}
+	\end{tabular} 
+ \end{tabular}
+}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[L]{\footnotesize \ttfamily Bài tập lớn Công nghệ Phần mềm}
+\fancyfoot[R]{\footnotesize \ttfamily {Trang {\thepage}/{\hypersetup{}\pageref{LastPage}}}}
+
+
+\begin{document}
+\include{content/coverpage}
+\tableofcontents
+
+% PHẦN 1: TỔNG QUAN DỰ ÁN
+\include{content/overview/overview}
+\include{content/overview/objectives_scope}
+\include{content/overview/stakeholders}
+
+% PHẦN 2: YÊU CẦU HỆ THỐNG (FUNCTIONAL & NON-FUNCTIONAL)
+\include{content/requirements}
+
+% PHẦN 3: MÔ HÌNH USE-CASE
+\include{content/use_case/ovr}
+\include{content/use_case/mem_io}
+\include{content/use_case/guest_io}
+\include{content/use_case/mem_pay}
+\include{content/use_case/guest_pay}
+\include{content/use_case/ad_pri+iot}
+\include{content/use_case/spec_occ}
+
+\end{document}

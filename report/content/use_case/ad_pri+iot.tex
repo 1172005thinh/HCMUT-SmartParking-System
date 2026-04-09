@@ -1,0 +1,50 @@
+\subsubsection{Quản lý quyền hạn, chi phí gửi xe và truy xuất dữ liệu (ad\_pri)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & ad\_pri \\ \hline
+\textbf{Use-case name} & Quản lý quyền hạn, chi phí gửi xe và truy xuất dữ liệu \\ \hline
+\textbf{Use-case overview} & Giúp quản trị viên thay đổi các chi phí gửi xe, truy xuất dữ liệu tức thời xe ra vào, chỉnh sửa định danh cá nhân( sinh viên, giảng viên, nhân viên ,...). \\ \hline
+\textbf{Actors} & Quản trị viên \\ \hline
+\textbf{Preconditions} & 
+1. Hệ thống đang hoạt động và có kết nối Internet. \newline
+2. Tài khoản của quản trị viên đã được xác thực thông qua HCMUT\_SSO. \newline
+3. Kết nối từ hệ thống IoT đang ở trạng thái ổn hoạt động và kết nối ổn định. \\ \hline
+\textbf{Trigger} & Quản trị viên truy cập vào bảng điều khiển và chọn "Chỉnh sửa" hoặc "Dữ liệu" trên giao diện của quản trị viên. \\ \hline
+\textbf{Steps} & 
+1. Quản trị viên truy cập vào giao diện quản lý hệ thống. \newline
+2. Quản trị viên thực hiện cập nhật định danh cá nhân hoặc điều chỉnh bảng giá gửi xe (tháng/quý/năm). \newline
+3. Hệ thống xác nhận và lưu các thay đổi vào cơ sở dữ liệu. \newline
+4. Song song đó, hệ thống liên tục truy xuất dữ liệu từ các thiết bị IoT mỗi 1 giây/lần. \newline
+5. Hệ thống xử lý và hiển thị thông tin về số lượng và sơ đồ vị trí chỗ trống lên màn hình giám sát theo thời gian thực.\\ \hline
+\textbf{Post conditions} & Chi phí gửi xe hoặc định danh cá nhân đã được chỉnh sửa đúng ý quản trị viên và được lưu vào cơ sở dữ liệu. Màn hình giám sát hiển thị chính xác trạng thái chỗ trống hiện tại của bãi xe.\\ \hline
+\textbf{Exception flow} & Nếu mất kết nối với wifi hoặc với hệ thống IoT sẽ hiển thị "Mất kết nối" hoặc "Mất kết nối với nhà xe" và xuất lại sơ đồ bãi xe lần cập nhật gần nhất. \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+\subsubsection{Kiểm soát số lượng và vị trí chỗ trống (iot)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & iot \\ \hline
+\textbf{Use-case name} & Kiểm soát số lượng và vị trí chỗ trống 1s/ lần \\ \hline
+\textbf{Use-case overview} & Hệ thống tự động thu thập dữ liệu giúp quản trị viên và người gửi biết được còn bao nhiêu chỗ trống. \\ \hline
+\textbf{Actors} & Hệ thống IoT. \\ \hline
+\textbf{Preconditions} & 
+1. Hệ thống đang hoạt động và có kết nối Internet. \newline
+2. Hệ thống IoT được cấp nguồn và kết nối với Internet. \newline
+3. Sơ đồ bãi đỗ xe được thiết lập và đồng bộ với cơ sở dữ liệu. \\ \hline
+\textbf{Trigger} & Bộ đếm thời gian tự động kích hoạt mỗi 1s theo chu kì. \\ \hline
+\textbf{Steps} & 
+1. Bộ đếm thời gian đếm đủ 1 giây và kích hoạt lệnh thu thập dữ liệu. \newline
+2. Hệ thống cảm biến IoT đồng loạt gửi trạng thái hiện tại (có xe/không có xe) về máy chủ. \newline
+3. Hệ thống tiếp nhận gói dữ liệu và đối chiếu với sơ đồ bãi đỗ. \newline
+4. Hệ thống tính toán tổng số chỗ trống hiện tại và định vị tọa độ chính xác của các vị trí trống đó. \newline
+5. Hệ thống lưu kết quả cập nhật vào cơ sở dữ liệu và đẩy dữ liệu mới lên giao diện màn hình giám sát. \\ \hline
+\textbf{Post conditions} & Cơ sở dữ liệu và giao diện màn hình hiển thị chính xác trạng thái, số lượng và sơ đồ chỗ trống mới nhất ở giây hiện tại.\\ \hline
+\textbf{Exception flow} & - \textbf{Lỗi một vài cảm biến:} Nếu hệ thống không nhận được tín hiệu từ một vị trí cụ thể, hệ thống đánh dấu vị trí đó là "Bảo trì/Không xác định", tiếp tục cập nhật các vị trí khác và gửi cảnh báo cho Admin.\newline
+- \textbf{Mất kết nối toàn bộ:} Nếu mất mạng hoặc IoT server sập, hệ thống giữ nguyên trạng thái bãi xe ở giây cuối cùng nhận được dữ liệu và hiển thị thông báo "Mất kết nối IoT" trên màn hình. \\ \hline
+\end{tabular}
+\end{adjustbox}

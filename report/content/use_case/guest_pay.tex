@@ -1,0 +1,40 @@
+\subsubsection{Thanh toán phí gửi xe đối với khách vãng lai (guest\_pay)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & guest\_pay \\ \hline
+\textbf{Use-case name} & Thanh toán phí gửi xe đối với khách vãng lai \\ \hline
+\textbf{Use-case overview} & Hỗ trợ khách vãng lai thanh toán phí gửi xe khi rời khỏi bãi đỗ xe trong trường. Khách có thể thanh toán qua cổng BKPay (chuyển khoản) hoặc trực tiếp bằng tiền mặt thông qua nhân sự bãi xe. \\ \hline
+\textbf{Actors} & Khách vãng lai (Actor chính), Nhân sự bãi xe (Actor phụ), Hệ thống BKPay (Actor phụ), Quản trị viên (Actor phụ). \\ \hline
+\textbf{Preconditions} &
+1. Khách đã được phát thẻ xe tại thời điểm vào bãi. \newline
+2. Hệ thống bãi xe đang hoạt động và đã ghi nhận thời gian vào của khách. \newline
+3. Khách đang trong quá trình ra khỏi bãi và cần thanh toán phí gửi xe. \\ \hline
+\textbf{Trigger} & Khách đã đưa thẻ vào máy đọc và hệ thống đã tra cứu phiên gửi xe, tính xong phí. \\ \hline
+\textbf{Steps} &
+1. Hệ thống đọc thông tin thẻ xe và tra cứu log ghi nhận thời gian vào tương ứng. \newline
+2. Hệ thống tính toán phí gửi xe dựa trên khoảng thời gian gửi xe thực tế và hiển thị số tiền cần thanh toán. \newline
+3. Màn hình thông báo số tiền và hỏi khách lựa chọn phương thức thanh toán: "Chuyển khoản qua BKPay" hoặc "Tiền mặt". \newline
+4a. \textit{Nếu chọn chuyển khoản:} Hệ thống tạo yêu cầu thanh toán và hiển thị mã QR/thông tin BKPay cho khách. \newline
+5a. Khách thực hiện chuyển khoản trên ứng dụng BKPay. \newline
+6a. BKPay gửi phản hồi xác nhận giao dịch thành công về cho hệ thống. \newline
+4b. \textit{Nếu chọn tiền mặt:} Khách đưa tiền mặt vào khe nhận tiền của máy tự động. \newline
+5b. Hệ thống xác nhận đã thu đủ số tiền và cập nhật trạng thái thanh toán trên hệ thống. \newline
+7. Hệ thống cập nhật trạng thái thẻ xe thành "Đã thanh toán", ghi log thời gian ra và mở barrier cho khách ra. \newline
+8. Khách nhét thẻ xe vào khe nhận thẻ của máy tự động. \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Post conditions} & Phí gửi xe của khách đã được thanh toán, barrier được mở, log ghi nhận thời gian ra đầy đủ (thời gian vào - ra, biển số xe, nhân sự tại thời điểm). Thẻ xe được thu hồi và sẵn sàng tái sử dụng. \\ \hline
+\textbf{Exception flow} &
+1. Mất kết nối BKPay (tại bước 4a hoặc 6a): Hệ thống thông báo lỗi kết nối, nhân sự hướng dẫn khách chuyển sang thanh toán tiền mặt (chuyển sang nhánh 4b). \newline
+2. Giao dịch BKPay thất bại (không đủ số dư, hủy ngang...): Nhận phản hồi lỗi từ BKPay, hệ thống thông báo "Giao dịch thất bại", hệ thống hiển thị màn hình hỗ trợ khách thử lại hoặc chuyển sang thanh toán tiền mặt. \newline
+3. Khách không có tiền mặt và không thể thanh toán qua BKPay: hệ thống thông báo cho nhân sự bãi xe xử lý theo quy trình trường hợp đặc biệt (use-case spec\_occ), ghi nhận thông tin và mở barrier thủ công. \newline
+4. Mất điện/mất mạng cục bộ: Hệ thống chuyển sang chế độ xử lý cục bộ, lưu log offline và nhân sự thu phí tiền mặt, đồng bộ dữ liệu lên HCMUT\_DATACORE khi kết nối được khôi phục. \\ \hline
+\end{tabular}
+\end{adjustbox}

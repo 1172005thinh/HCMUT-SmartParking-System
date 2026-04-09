@@ -1,0 +1,51 @@
+\section{Yêu cầu}
+\subsection{Yêu cầu chức năng}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+    \small
+    \begin{tabular}{|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{4.7cm}|>{\centering\arraybackslash}m{7cm}|}
+    \hline
+    \textbf{STT} & \textbf{Yêu cầu chức năng} & \textbf{Mục đích} & \textbf{Mô tả}\\
+    \hline
+    1 & Quản lý ra vào & Kiểm soát phương tiện tại các cổng ra vào nhằm giảm thiểu ùn tắc và đảm bảo an ninh & 
+    \begin{itemize}[leftmargin=0pt, label={}]
+        \item Chức năng chịu trách nhiệm ghi nhận các lượt vào và ra của mọi đối tượng người dùng một cách tự động hoặc bán tự động.
+        \item Đối với thành viên trường, hệ thống tích hợp với HCMUT\_SSO và HCMUT\_DATACORE để đồng bộ dữ liệu người dùng.
+        \item Đối với khách hoặc các trường hợp đặc biệt, cung cấp cơ chế truy cập độc lập thông qua việc phát hành vé tạm thời tại cổng.
+    \end{itemize}
+    \\
+    \hline
+    2 & Quản lý chi phí & Xây dựng cơ chế tính phí và thanh toán tập trung, minh bạch 
+    &
+    \begin{itemize}[leftmargin=0pt, label={}]
+        \item Hệ thống tự động áp dụng các chính sách giá và đặc quyền khác nhau tùy theo vai trò người dùng (sinh viên, giảng viên) được cấu hình bởi quản trị viên và thanh toán theo chu kỳ.
+        \item Đối với các yêu cầu thanh toán không tiền mặt, tất cả đều được tích hợp và xử lý thông qua nền tảng thanh toán nội bộ BKPay để đảm bảo tính đồng bộ và an toàn tài chính.
+        \item Đối với khách hoặc các trường hợp đặc biệt, cung cấp cơ chế thanh toán bằng mã QR đến BKPay tại vị trí ra vào hoặc thanh toán bằng tiền mặt cho nhân viên bãi xe.
+    \end{itemize}
+    \\
+    \hline
+    \end{tabular}
+\end{adjustbox}
+\newpage
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+    \small
+    \begin{tabular}{|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{4.7cm}|>{\centering\arraybackslash}m{7cm}|}
+    \hline
+    \textbf{STT} & \textbf{Yêu cầu chức năng} & \textbf{Mục đích} & \textbf{Mô tả}\\
+    \hline
+    3 & Quản lý hạ tầng & Giám sát trạng thái bãi xe thời gian thực và quản lý cấu hình hệ thống toàn diện & \begin{itemize}[leftmargin=0pt, label={}]
+        \item Thu thập dữ liệu từ mạng lưới cảm biến IoT tại từng vị trí đỗ xe để duy trì chính xác số lượng chỗ trống. Thông tin này được hiển thị và cập nhật trên bảng điện tử nhằm thông báo tới người đang gửi xe vào bãi.
+        \item Cung cấp công cụ cho quản trị viên thiết lập phân quyền, điều chỉnh chính sách vận hành và theo dõi nhật ký hoạt động (logs) để phục vụ công tác kiểm tra, báo cáo.
+    \end{itemize} \\
+    \hline
+    \end{tabular}
+\end{adjustbox}
+\subsection{Yêu cầu phi chức năng}
+\begin{itemize}[label=-]
+    \item \textbf{Độ sẵn sàng:} Duy trì 99\% khả năng xử lý trong thời gian hoạt động.
+    \vspace{-10pt}
+    \item \textbf{Thời gian phản hồi:} Barrier mở trong vòng $\le$ 2 giây sau khi xác thực thành công
+    \vspace{-10pt}
+    \item \textbf{Tính liền mạch của thông tin:} Cập nhật từ HCMUT\_DATACORE mỗi 24h về quyền truy cập bãi xe (định danh cá nhân và các thuê bao)
+    \vspace{-10pt}
+    \item \textbf{Độ chính xác dữ liệu:} Trạng thái chỗ trống trên bảng điện tử khớp > 98\% với thực tế.
+\end{itemize}

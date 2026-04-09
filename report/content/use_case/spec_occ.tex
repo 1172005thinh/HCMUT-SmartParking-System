@@ -1,0 +1,165 @@
+\subsubsection{Xử lý sự cố đặc biệt tại bãi xe (spec\_occ)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & spec\_occ \\ \hline
+\textbf{Use-case name} & Xử lý sự cố đặc biệt tại bãi xe  \\ \hline
+\textbf{Use-case overview} & Hỗ trợ công cụ, phương thức cho nhân viên tại bãi xe xử lý thủ công các trường hợp đặc biệt xảy ra tại bãi xe   \\ \hline
+\textbf{Actors} & Nhân viên bãi xe, người gửi xe  \\ \hline
+\textbf{Preconditions} & Nhân viên bãi xe đã đăng nhập hệ thống và có thông báo sự cố từ hệ thống trên màn hình điều khiển hoặc thông báo từ người dùng. \\ \hline
+\textbf{Trigger} & Nhân viên bãi xe truy cập vào chức năng “Xử lý sự cố tại bãi” trên giao diện của hệ thống. \\ \hline
+\textbf{Steps} & 
+1. Hệ thống báo động hoặc nhận được yêu cầu hỗ trợ từ người gửi xe. \newline
+2. Nhân viên bãi xe kiểm tra thông tin trên màn hình điều khiển và xác nhận sự cố gặp phải. \newline
+3. Nhân viên bãi xe truy cập vào chức năng "Xử lý sự cố tại bãi" trên màn hình điều khiển của hệ thống. \newline
+4. Nhân viên chọn loại sự cố cụ thể trên màn hình điều khiển để xử lý. \\ \hline
+\textbf{Post conditions} & Hệ thống ghi lại thông tin sự cố đã xảy ra. \\ \hline
+\textbf{Exception flow} & 
+1. Hệ thống báo động lỗi (xác nhận sai sự cố), nhân viên tắt thông báo trên màn hình. \newline
+2. Đầu đọc thẻ không nhận được dữ liệu, nhân viên yêu cầu người gửi quét thẻ lại hoặc xử lý theo các trường hợp cụ thể khác. \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+\paragraph{Kích hoạt chế độ khẩn cấp (spec\_occ\_1)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & spec\_occ\_1   \\ \hline
+\textbf{Use-case name} & Kích hoạt chế độ khẩn cấp   \\ \hline
+\textbf{Use-case overview} & Chuyển trạng thái bãi xe sang chế độ mở hoàn toàn để giải tỏa các phương tiện có trong bãi nhanh nhất khi có sự cố nghiêm trọng xảy ra. \\ \hline
+\textbf{Actors} & Nhân viên bãi xe, hệ thống IoT   \\ \hline
+\textbf{Preconditions} & Có tín hiệu cháy nổ hoặc tình huống khẩn cấp khác cần phải giải tỏa   \\ \hline
+\textbf{Trigger} & 1. Nhân viên bãi xe chọn chức năng “Kích hoạt chế độ khẩn cấp” trên màn hình điều khiển. \newline 2. Hệ thống tự kích hoạt chế độ khẩn cấp sau 10 giây khi nhận được tín hiệu khẩn cấp từ các cảm biến. \\ \hline
+\textbf{Steps} & 
+1. Nhân viên bãi xe chọn chức năng “Kích hoạt chế độ khẩn cấp” khi có sự cố. \newline
+2. Hệ thống mở đồng loạt các barrier tại các cổng ra/vào. \newline
+3. Tạm dừng quy trình xác thực và tính phí để ưu tiên lưu thông. \\ \hline
+\textbf{Post conditions} & Barrier giữ trạng thái mở, hệ thống ghi lại thông tin sự cố xảy ra. \\ \hline
+\textbf{Exception flow} & 1. Nếu hệ thống điều khiển không hoạt động, các barrier được mở thủ công bằng chìa khóa cơ hoặc nút nhấn vật lý tại bàn điều khiển. \newline
+2. Nếu khi không có sự cố, nhưng hệ thống đã xác nhận sai và tự kích hoạt chế độ khẩn cấp, thì buộc nhân viên phải tự tắt chế độ này tại màn hình điều khiển. \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+\paragraph{ Giải quyết lỗi thanh toán (spec\_occ\_2)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & spec\_occ\_2   \\ \hline
+\textbf{Use-case name} & Giải quyết lỗi thanh toán   \\ \hline
+\textbf{Use-case overview} & Xử lý trường hợp người dùng thanh toán phí gửi xe qua hệ thống BKPay không thành công   \\ \hline
+\textbf{Actors} & Nhân viên bãi xe, người dùng, hệ thống BKPay  \\ \hline
+\textbf{Preconditions} & 1. Người dùng quét thẻ tại cổng ra/vào nhưng hệ thống không phản hồi. \newline
+2. Hệ thống BKPay báo lỗi trên màn hình điều khiển.\newline
+3. Hệ thống đưa ra mã QR thanh toán không hợp lệ, người dùng không thực hiện thanh toán qua BK\_PAY được.\\ \hline
+\textbf{Trigger} & Nhân viên bãi xe chọn chức năng “Lỗi thanh toán” trên màn hình điều khiển.   \\ \hline
+\textbf{Steps} & 
+1. Nhân viên kiểm tra lại kết nối của hệ thống bãi xe với hệ thống BKPay và yêu cầu người gửi xe quét thẻ lại. \newline
+2. Nếu vẫn chưa thành công, nhân viên bãi xe chọn chức năng “Lỗi thanh toán” trên giao diện hệ thống. \newline
+3. Kiểm tra lịch sử giao dịch của người dùng theo thông tin thẻ trên hệ thống BK\_PAY \newline
+4. Nhân viên thực hiện ghi đè trạng thái thanh toán và hệ thống xác nhận thanh toán thành công. \newline
+5. Hệ thống ra lệnh mở barrier tự động.   \\ \hline
+\textbf{Post conditions} & Hệ thống ghi lại thông tin sự cố xảy ra. \\ \hline
+\textbf{Exception flow} & Nếu hệ thống BK\_PAY vẫn không xác nhận được thanh toán thành công hoặc người dùng không chuyển tiền qua mã QR được, buộc phải thanh toán bằng tiền mặt. \\ \hline
+\end{tabular}
+\end{adjustbox}
+\paragraph{ Giải quyết quên thẻ định danh (spec\_occ\_3)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & spec\_occ\_3   \\ \hline
+\textbf{Use-case name} & Giải quyết quên thẻ định danh   \\ \hline
+\textbf{Use-case overview} & Xử lý trường hợp người dùng quên thẻ định danh (dành cho các thành viên của nhà trường)  \\ \hline
+\textbf{Actors} & Nhân viên bãi xe, người dùng, HCMUT\_DATACORE   \\ \hline
+\textbf{Preconditions} & Người dùng không có thẻ định danh tại cổng khi ra hoặc vào bãi xe. \\ \hline
+\textbf{Trigger} & Nhân viên bãi xe chọn chức năng “Quên thẻ định danh” trên giao diện hệ thống. \\ \hline
+\textbf{Steps} & 
+1. Nhân viên bãi xe chọn chức năng “Quên thẻ định danh” trên giao diện hệ thống. \newline
+2. Nhân viên bãi xe yêu cầu cung cấp thông tin định danh (MSSV hoặc MSCB) để xác nhận trên hệ thống HCMUT\_DATACORE. \newline
+3.1 \textbf{Khi đi vào:} Hệ thống xác nhận hợp lệ, ghi nhận phiên gửi xe thành công và phát thẻ tạm thời cho người dùng. \newline
+3.2 \textbf{Khi đi ra:} Người dùng thực hiện lượt đi ra như khách vãng lai nhưng không cần yêu cầu thanh toán.  \newline
+4. Hệ thống ra lệnh để mở barrier tự động. \\ \hline
+\textbf{Post conditions} & Hệ thống ghi lại thông tin sự cố xảy ra và thông tin phiên gửi xe gắn với thông tin người dùng trên hệ thống HCMUT\_DATACORE. \\ \hline
+\textbf{Exception flow} & Nếu không có thông tin trên HCMUT\_DATACORE, hoặc có thông tin nhưng người dùng không có đăng ký dịch vụ, người dùng buộc phải sử dụng vé tạm thời hoặc thực hiện đăng ký để sử dụng dịch vụ. \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+\paragraph{ Giải quyết mất vé gửi xe (spec\_occ\_4)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & spec\_occ\_4   \\ \hline
+\textbf{Use-case name} & Giải quyết mất vé gửi xe   \\ \hline
+\textbf{Use-case overview} & Xử lý trường hợp người dùng mất vé của phiên gửi xe (dành cho người dùng vãng lai và thành viên nhà trường nếu làm mất vé tạm thời khi được cấp lúc quên mang thẻ). \\ \hline
+\textbf{Actors} & Nhân viên bãi xe, người dùng, HCMUT\_DATACORE   \\ \hline
+\textbf{Preconditions} & Người dùng không có vé tại cổng ra/vào. \\ \hline
+\textbf{Trigger} & Nhân viên bãi xe chọn chức năng “Mất vé tạm thời” trên giao diện hệ thống. \\ \hline
+
+\textbf{Steps} & 
+\begin{enumerate}[label=\arabic*., leftmargin=1.5em, nosep]
+    \item Nhân viên bãi xe chọn chức năng “Mất vé tạm thời” trên giao diện hệ thống.
+    \item Nhân viên xác nhận đó là thành viên nhà trường hay khách vãng lai.
+    \begin{enumerate}[label=2.\arabic*., leftmargin=2em, nosep]
+        \item Nếu là thành viên nhà trường, yêu cầu cung cấp thông tin (MSSV hoặc MSCB).
+        \begin{enumerate}[label=2.1.\arabic*., leftmargin=2.5em, nosep]
+            \item Nhân viên xác nhận đúng thông tin về phiên gửi xe từ hệ thống và yêu cầu thực hiện phí phạt làm mất thẻ.
+            \item Nhân viên chọn tạo mã QR thanh toán phí phạt nếu người dùng chọn thanh toán qua BK\_PAY hoặc thu tiền mặt tại chỗ.
+        \end{enumerate}
+        \item Nếu là khách vãng lai, nhân viên bãi xe yêu cầu cung cấp thông tin phương tiện (biển số xe, loại xe, thời gian vào).
+        \begin{enumerate}[label=2.2.\arabic*., leftmargin=2.5em, nosep]
+            \item Nhân viên kiểm tra lại trên hệ thống và nhân viên xác nhận hệ thống hiển thị thông tương ứng.
+            \item Nhân viên chọn tạo mã QR thanh toán phí phạt nếu người dùng chọn thanh toán qua BK\_PAY hoặc thu tiền mặt tại chỗ.
+        \end{enumerate}
+    \end{enumerate}
+    \item Nhân viên ra lệnh để mở barrier thủ công sau khi xác nhận thanh toán phạt thành công.
+\end{enumerate} \\ \hline
+\textbf{Post conditions} & Hệ thống ghi lại thông tin sự cố xảy ra, thông tin về phiên gửi xe. \\ \hline
+\textbf{Exception flow} & Nếu không tìm thấy dữ liệu xe vào trên hệ thống, nhân viên báo cáo quản trị viên kiểm tra camera an ninh hoặc giấy tờ xe. \\ \hline
+\end{tabular}
+\end{adjustbox}
+\paragraph{ Giải quyết thẻ quá hạn, không thanh toán phí (spec\_occ\_5)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & spec\_occ\_5   \\ \hline
+\textbf{Use-case name} & Giải quyết thẻ quá hạn, không thanh toán phí   \\ \hline
+\textbf{Use-case overview} & Xử lý trường hợp người dùng không thanh toán phí hoặc thẻ chưa được gia hạn chu kỳ mới. \\ \hline
+\textbf{Actors} & Nhân viên bãi xe, người dùng, HCMUT\_DATACORE \\ \hline
+\textbf{Preconditions} & Hệ thống thông báo thẻ quá hạn hoặc không thanh toán phí khi quét thẻ. Barrier không mở.   \\ \hline
+\textbf{Trigger} & Nhân viên bãi xe chọn chức năng “Giải quyết thẻ quá hạn, không thanh toán phí” trên giao diện hệ thống. \\ \hline
+\textbf{Steps} & 
+1. Nhân viên bãi xe chọn chức năng “Giải quyết thẻ quá hạn, không thanh toán phí” trên giao diện hệ thống. \newline
+2. Nhân viên bãi xe kiểm tra chi tiết khoản nợ trên hệ thống quản lý. \newline
+3. Nhân viên hướng dẫn thanh toán qua hệ thống BKPay (thực hiện theo quy trình mem\_pay) \newline
+4. Người dùng quét thẻ lại sau khi thanh toán thành công. \\ \hline
+\textbf{Post conditions} & Xóa đánh dấu quá hạn hoặc nợ phí thanh toán trên thẻ định danh. \\ \hline
+\textbf{Exception flow} & Nếu hệ thống mất kết nối với BKPay, nhân viên ghi nhận thủ công giao dịch và mở barrier thủ công. \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+\paragraph{Mở barrier thủ công  (spec\_occ\_6)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & spec\_occ\_6  \\ \hline
+\textbf{Use-case name} & Mở barrier thủ công   \\ \hline
+\textbf{Use-case overview} & Nhân viên can thiệp mở barrier thủ công cho các trường hợp hệ thống không tự động. \\ \hline
+\textbf{Actors} & Nhân viên bãi xe, hệ thống bãi xe   \\ \hline
+\textbf{Preconditions} &
+1. Các trường hợp ra/vào cổng đặc biệt \newline
+2. Sau khi xác thực thành công của hoạt động ra, vào nhưng hệ thống không tự động mở.
+\\ \hline
+\textbf{Trigger} & Nhân viên chọn chức năng “Mở barrier” trên màn hình điều khiển. \\ \hline
+\textbf{Steps} & 
+1. Nhân viên bãi xe chọn chức năng “Mở barrier” trên giao diện hệ thống. \newline
+2. Hệ thống barrier mở sau khi nhân viên xác nhận. \\ \hline
+\textbf{Post conditions} & Hệ thống ghi lại thông tin sự cố và thông tin nhân viên ra lệnh mở barrier. \\ \hline
+\textbf{Exception flow} & Mở bằng nút nhấn vật lý hoặc khóa cơ nếu hệ thống không xác nhận. \\ \hline
+\end{tabular}
+\end{adjustbox}

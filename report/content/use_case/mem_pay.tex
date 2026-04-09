@@ -1,0 +1,36 @@
+\subsubsection{Thanh toán phí gửi xe đối với thành viên (mem\_pay)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+    \small
+    \begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|} 
+        \hline
+        \textbf{Use-case ID} & mem\_pay \\ \hline
+        \textbf{Use-case name} & Thanh toán phí gửi xe đối với thành viên \\ \hline
+        \textbf{Use-case overview} & Hỗ trợ các thành viên trong trường thanh toán phí gửi xe định kỳ (chu kỳ 3 tháng) thông qua cổng BKPay. Phí gửi xe được tính toán tự động dựa trên tổng số phiên gửi xe (parking sessions) phát sinh trong chu kỳ đó. \\ \hline
+        \textbf{Actors} & Thành viên trong trường, Hệ thống BKPay (Phụ), HCMUT\_DATACORE (Phụ). \\ \hline
+        \textbf{Preconditions} & 
+        1. Hệ thống bãi xe đang hoạt động và có kết nối Internet. \newline
+        2. Tài khoản của thành viên đã được xác thực thông qua HCMUT\_SSO. \newline
+        3. Hệ thống đã tổng hợp số lượng phiên gửi xe (sessions) của thành viên trong chu kỳ 3 tháng. \newline
+        4. Kết nối từ hệ thống đến cổng thanh toán BKPay đang ở trạng thái khả dụng. \\ \hline
+        \textbf{Trigger} & Người dùng truy cập vào chức năng "Thanh toán phí gửi xe" trên hệ thống, hoặc bấm vào liên kết thanh toán từ email thông báo nhắc nhở đóng phí. \\ \hline
+        \textbf{Steps} & 
+        1. Hệ thống truy xuất dữ liệu định danh của thành viên từ HCMUT\_DATACORE và tra cứu tổng số phiên gửi xe chưa thanh toán trong chu kỳ 3 tháng vừa qua. \newline
+        2. Hệ thống tính toán tổng chi phí và hiển thị chi tiết hóa đơn (số lượng phiên, đơn giá, tổng tiền) trên màn hình thiết bị của người dùng. \newline
+        3. Người dùng kiểm tra thông tin hóa đơn và nhấn chọn "Thanh toán". \newline
+        4. Hệ thống tự động khởi tạo yêu cầu giao dịch và chuyển hướng người dùng sang cổng thanh toán BKPay. \newline
+        5. Người dùng hoàn tất các thao tác chuyển khoản/quẹt thẻ trên nền tảng BKPay. \newline
+        6. BKPay gửi phản hồi xác nhận giao dịch thành công về cho hệ thống. \newline
+        7. Hệ thống cập nhật trạng thái các phiên gửi xe trong chu kỳ thành "Đã thanh toán" và hiển thị thông báo giao dịch thành công cho người dùng. \\ \hline
+    \end{tabular}
+\end{adjustbox}
+
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+    \small
+    \begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|} 
+        \hline
+        \textbf{Post conditions} & Trạng thái hóa đơn chu kỳ 3 tháng của thành viên được cập nhật thành "Đã thanh toán", hệ thống lưu lại lịch sử giao dịch. \\ \hline
+        \textbf{Exception flow} & 
+        1. Mất kết nối BKPay (tại bước 4 hoặc 6): Hệ thống thông báo lỗi kết nối, yêu cầu người dùng thử lại sau và giữ nguyên trạng thái hóa đơn là "Chưa thanh toán". \newline
+        2. Giao dịch thất bại (không đủ số dư, người dùng hủy ngang...): Nhận phản hồi lỗi từ BKPay, hệ thống thông báo "Giao dịch thất bại" trên màn hình và ghi nhận log lỗi. \\ \hline
+    \end{tabular}
+\end{adjustbox}

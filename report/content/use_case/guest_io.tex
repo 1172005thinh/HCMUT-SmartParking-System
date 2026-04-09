@@ -1,0 +1,64 @@
+\subsubsection{Xử lý ra/vào cho khách (guest\_io)}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Use-case ID} & guest\_io \\ \hline
+\textbf{Use-case name} & Xử lý ra/vào cho khách (Phát/thu thẻ xe tại chỗ) \\ \hline
+\textbf{Use-case overview} & Hỗ trợ phát thẻ xe cho khách khi vào bãi và thu thẻ khi khách ra, nhằm đảm bảo việc kiểm soát phương tiện ra/vào được an toàn và chính xác. \\ \hline
+\textbf{Actors} & Khách, nhân sự bãi xe, quản trị viên. \\ \hline
+\textbf{Preconditions} & 
+1. Hệ thống bãi xe đang hoạt động bình thường (cổng vào mở, máy phát thẻ, máy đọc thẻ và cảm biến IoT hoạt động bình thường). \newline
+2. Khách vãng lai chưa có thẻ định danh trong hệ thống (không thể xác thực qua HCMUT\_SSO). \newline
+3. Bãi xe còn chỗ trống. \\ \hline
+\textbf{Trigger} & 
+1. Khi vào bãi xe: khách nhấn nút tại máy phát thẻ $\rightarrow$ hệ thống tự động phát thẻ gửi xe. \newline
+2. Khi ra khỏi bãi xe: khách đưa thẻ vào máy đọc $\rightarrow$ hệ thống tự động tính phí dựa trên thời gian gửi xe. \\ \hline
+\textbf{Steps} & 
+1. Khách vào nhấn nút sau đó máy phát thẻ phát thẻ gửi xe. \newline
+2. Hệ thống ghi nhận thời điểm vào, ID thẻ, loại phương tiện. \newline
+3. Bảng điện tử hiển thị hướng dẫn vị trí còn trống. \newline
+4. Khi ra, khách đưa thẻ vào máy đọc. \newline
+5. Hệ thống tra cứu phiên gửi xe, tính phí. \newline
+6. Khách chọn phương thức thanh toán (Trực tuyến hoặc tiền mặt). \newline
+7. Sau khi thanh toán thành công, hệ thống mở cổng cho khách ra. \newline
+8. Hệ thống ghi nhận lượt ra, cập nhật trạng thái chỗ đậu. \\ \hline
+\end{tabular}
+\end{adjustbox}
+
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
+\hline
+\textbf{Post conditions} & 
+1. Phiên gửi xe của khách được kết thúc. \newline
+2. Dữ liệu gửi xe và giao dịch được lưu để phục vụ thống kê và báo cáo. \newline
+3. Chỗ đậu được đánh dấu là trống. \\ \hline
+\textbf{Exception flow} & 
+1. Khách không nhận được thẻ khi nhấn nút (hết thẻ, lỗi kỹ thuật): 
+\begin{itemize}
+    \item Hệ thống hiển thị thông báo lỗi trên màn hình.
+    \item Nhân sự bãi xe được cảnh báo qua hệ thống giám sát.
+    \item Nhân sự cấp thẻ thủ công cho khách.
+\end{itemize}
+2. Khách mất thẻ gửi xe: 
+\begin{itemize}
+    \item Khách báo cho nhân sự bãi xe.
+    \item Nhân sự tra cứu camera hoặc hệ thống để xác định thời điểm vào.
+    \item Hệ thống tính phí theo chính sách “mất thẻ” (do quản trị viên cấu hình).
+    \item Nhân sự cấp vé thay thế để khách ra khỏi bãi.
+\end{itemize}
+3. Máy đọc thẻ không nhận diện được thẻ (thẻ hỏng, máy đọc lỗi)
+\begin{itemize}
+    \item Hệ thống hiển thị thông báo lỗi.
+    \item Nhân sự bãi xe hỗ trợ bằng cách nhập ID thẻ thủ công vào hệ thống.
+    \item Nếu không thể xác định, áp dụng chính sách ngoại lệ (do quản trị viên cấu hình).
+\end{itemize}
+4. Cảm biến IoT báo sai trạng thái chỗ đậu (cảm biến hỏng, dữ liệu trễ):
+\begin{itemize}
+    \item Hệ thống đánh dấu cảm biến lỗi và loại bỏ khỏi tính toán.
+    \item Nhân sự bãi xe kiểm tra thực tế và cập nhật trạng thái thủ công.
+\end{itemize}
+\\ \hline
+\end{tabular}
+\end{adjustbox}
