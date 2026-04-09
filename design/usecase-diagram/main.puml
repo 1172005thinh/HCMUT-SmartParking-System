@@ -1,0 +1,115 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam nodesep 10
+skinparam ranksep 20
+skinparam defaultTextAlignment center
+
+' Định dạng màu sắc giống với hình ảnh minh họa
+skinparam actor {
+    BackgroundColor<<Guest>> #81C784
+    BorderColor<<Guest>> #2E7D32
+    
+    BackgroundColor<<Staff>> #4FC3F7
+    BorderColor<<Staff>> #0277BD
+    
+    BackgroundColor<<Member>> #FF8A65
+    BorderColor<<Member>> #D84315
+    
+    BackgroundColor<<Admin>> #BA68C8
+    BorderColor<<Admin>> #6A1B9A
+    
+    BackgroundColor<<SSO>> #FFD54F
+    BorderColor<<SSO>> #FF8F00
+    
+    BackgroundColor<<BKPay>> #757575
+    BorderColor<<BKPay>> #212121
+    
+    BackgroundColor<<Datacore>> #E57373
+    BorderColor<<Datacore>> #C62828
+}
+
+skinparam usecase {
+    BackgroundColor<<GuestUC>> #E8F5E9
+    BorderColor<<GuestUC>> #2E7D32
+    
+    BackgroundColor<<StaffUC>> #E1F5FE
+    BorderColor<<StaffUC>> #0277BD
+    
+    BackgroundColor<<MemberUC>> #FBE9E7
+    BorderColor<<MemberUC>> #D84315
+    
+    BackgroundColor<<AuthUC>> #E0E0E0
+    BorderColor<<AuthUC>> #424242
+    
+    BackgroundColor<<AdminUC>> #F3E5F5
+    BorderColor<<AdminUC>> #6A1B9A
+}
+
+' Danh sách các tác nhân (Actors)
+actor "Khách vãng lai" <<Guest>> as Guest
+actor "Nhân sự bãi xe" <<Staff>> as Staff
+actor "Thành viên trường" <<Member>> as Member
+actor "Quản trị viên" <<Admin>> as Admin
+
+actor "HCMUT_SSO" <<SSO>> as SSO
+actor "BKPay" <<BKPay>> as BKPay
+actor "HCMUT_DATACORE" <<Datacore>> as Datacore
+
+' Phạm vi hệ thống (System Boundary)
+rectangle "Hệ thống Quản lý Bãi đỗ xe HCMUT" {
+    
+    ' Nhóm Use-case cho Khách
+    usecase "Xử lý vào cho khách\n(guest_io)" <<GuestUC>> as UC_GuestIn
+    usecase "Xử lý ra cho khách\n(guest_io)" <<GuestUC>> as UC_GuestOut
+    usecase "Thanh toán phí qua QR/Tiền mặt\n(guest_pay)" <<GuestUC>> as UC_GuestPay
+    
+    ' Nhóm Use-case Chung/Nhân sự
+    usecase "Xem trạng thái chỗ trống\n(iot)" <<StaffUC>> as UC_ViewSlots
+    usecase "Xử lý sự cố đặc biệt\n(spec_occ)" <<StaffUC>> as UC_SpecOcc
+    
+    ' Nhóm Use-case cho Thành viên
+    usecase "Kiểm soát vào cho thành viên\n(mem_io)" <<MemberUC>> as UC_MemIn
+    usecase "Kiểm soát ra cho thành viên\n(mem_io)" <<MemberUC>> as UC_MemOut
+    usecase "Thanh toán phí định kỳ\n(mem_pay)" <<MemberUC>> as UC_MemPay
+    usecase "Xác thực thành viên" <<AuthUC>> as UC_Auth
+    
+    ' Nhóm Use-case cho Quản trị viên
+    usecase "Giám sát & Cấu hình hệ thống\n(ad_pri)" <<AdminUC>> as UC_Admin
+}
+
+' --- MỐI QUAN HỆ CỦA CÁC TÁC NHÂN ---
+
+' 1. Khách vãng lai
+Guest -- UC_GuestIn
+Guest -- UC_GuestOut
+Guest -- UC_GuestPay
+Guest -- UC_ViewSlots
+
+' 2. Nhân sự bãi xe
+Staff -- UC_ViewSlots
+Staff -- UC_SpecOcc
+
+' 3. Thành viên trường
+Member -- UC_ViewSlots
+Member -- UC_MemIn
+Member -- UC_MemOut
+Member -- UC_MemPay
+
+' 4. Quản trị viên
+Admin -- UC_Admin
+
+' 5. Include Relationships (Quan hệ bao hàm nội bộ)
+UC_MemIn ..> UC_Auth : <<include>>
+UC_MemOut ..> UC_Auth : <<include>>
+
+' 6. Hệ thống thanh toán (BKPay)
+UC_GuestPay -- BKPay
+UC_MemPay -- BKPay
+
+' 7. Hệ thống dữ liệu & Định danh (SSO, DATACORE)
+UC_Auth -- SSO
+UC_Auth -- Datacore
+UC_Admin -- Datacore : <<Truy xuất\ndữ liệu>>
+
+@enduml
