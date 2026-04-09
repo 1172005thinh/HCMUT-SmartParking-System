@@ -1,0 +1,61 @@
+Dashboard (Home):
+- admin: full
+	Thống kê:
+		hiện tại là có bao nhiêu xe ở trong bãi 1 và bãi 2
+		số nhân viên tại ở bãi đậu
+	Control:
+		shutdown/start/restart (authentication)
+	Log: peak [x] latest entries (x must be an int < 7)
+	
+- staff: schedule (read), alert
+	alert: nhập xuất bất thường, cảnh báo "bị kẹt"
+- user: số lần ra vào trong chu kì này, số chỗ trống/total, nút notify "bị kẹt"
+
+Configuration (admin only):
+1. Chi phí:
+	radio choice: 2000 - 3000 - 5000
+	text: number only (validation: 0 < m < 10000)
+2. Nhân sự:
+	a. Quản lý chấm công: (sort/search/filter)
+		
+//////////		Claude here
+		
+	b. Thêm/xóa nhân sự (sort/search/filter)
+		New, import, export
+		Bảng item (1 entry = 1 người, công cụ: select, edit, delete, cancel)
+			Edit: tên người, id, chức vụ
+		Page: (Pre | 1, 2, 3, ..., 100 | Next)
+3. Bãi đậu xe:
+	Quản lý nhiều campus: (sort/search/filter)
+		Bảng item (1 entry = 1 bãi đậu xe, công cụ: select, edit, delete, cancel)
+			Edit: tên bãi đậu, id, max cap, open/close time
+		Page: ... như trên
+
+Payment:
+- user: tổng số tiền (đến chu kì thanh toán), thời hạn, phương thức (QR BKPay), xác nhận thanh toán thành công
+
+Schedule (staff only):
+	radio choice: Sáng - Chiều - Tối (multiple-choice)
+	Apply/Cancel
+
+History (có sort/search/filter):
+Bảng item
+- admin: full record
+- staff: none
+- user: record timestamp (in/out)
+
+About: (có version, policy, readme (help), feedback, hotline)
+
+Settings: (có theme (dark/light), lang (en/vi), notify (bật, tắt), delete/sign in/log out acc)
+- admin: parameters settings 
+
+--------------------------------------------
+
+Admin (Dashboard, Configuration, History, About, Settings)
+staff (Dashboard, Schedule, About, Settings)
+user (Dashboard, Payment, History, About, Settings)
+
+---------------------------------------------
+
+Web-app
+WPF (XAML) / CSS(HTML) + Python animation

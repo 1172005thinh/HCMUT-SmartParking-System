@@ -9,7 +9,7 @@
 \textbf{Use-case overview} & Kiểm soát quá trình vào/ra của các thành viên trường (sinh viên, giảng viên, nhân viên) bằng thẻ nhận diện ID, tích hợp với cơ sở hạ tầng của trường và dịch vụ xác thực trung tâm. \\ \hline
 \textbf{Actors} & Các thành viên trường HCMUT, HCMUT\_SSO (Phụ), HCMUT\_DATACORE (Phụ), Hệ thống IoT tại chỗ. \\ \hline
 \textbf{Preconditions} & 
-1. Hệ thống Quản lý Bãi đỗ xe Thông minh cho Khuôn viên Trường Đại học đang hoạt động. \newline
+1. Hệ thống Quản lý Bãi đỗ xe Thông minh cho Khuôn viên Trường Đại học đang hoạt động và bãi đỗ còn chỗ trống. \newline
 2. Thành viên thực hiện thủ tục vào/ra có thẻ nhận diện hợp lệ. \newline
 3. Kết nối đến HCMUT\_SSO và HCMUT\_DATACORE phải khả dụng để xác thực theo thời gian thực. \newline
 4. Thiết bị phần cứng của barrier (đầu đọc RFID, servor motor, sensors...) đang hoạt động. \\ \hline
@@ -20,9 +20,10 @@
 3. Hệ thống truy xuất thông tin người dùng và quyền sử dụng bãi đỗ xe của trường từ HCMUT\_DATACORE. \newline
 4. Hệ thống xác thực yêu cầu thông cổng (kiểm tra hạn sử dụng của quyền sử dụng bãi đỗ xe, chống chuỗi nhập xuất bất thường như hai lần vào liên tục,...). \newline
 5. Hệ thống ghi record thông cổng (ID người dùng, timestamp, ID cổng, hạn sử dụng quyền sử dụng bãi đỗ,...) trên log. \newline
-6. Hệ thống gửi lệnh đến servor motor controller của barrier để mở cổng. \newline
-7. Cảm biến nhận diện chuyển động của phương tiện qua barrier. \newline
-8. Hệ thống gửi lệnh đến servor motor controller của barrier để đóng cổng sau khi cảm biến nhận diện phương tiện đã qua cổng. \\ \hline
+6. Hệ thống cập nhật (tăng 1) tổng số lần gửi xe vào HCMUT\_DATACORE và giá trị xuất/nhập của thành viên. \newline
+7. Hệ thống gửi lệnh đến servor motor controller của barrier để mở cổng. \newline
+8. Cảm biến nhận diện chuyển động của phương tiện qua barrier. \newline
+9. Hệ thống gửi lệnh đến servor motor controller của barrier để đóng cổng sau khi cảm biến nhận diện phương tiện đã qua cổng. \\ \hline
 \end{tabular}
 \end{adjustbox}
 
