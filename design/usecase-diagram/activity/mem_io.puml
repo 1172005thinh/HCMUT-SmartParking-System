@@ -1,0 +1,46 @@
+@startuml
+skinparam style strictuml
+
+|Thành viên|
+start
+:Chạm thẻ nhận diện ID vào đầu đọc;
+
+|Hệ thống IoT|
+:Đọc thông tin từ thẻ RFID;
+:Gửi ID thẻ lên hệ thống;
+
+|Hệ thống điều khiển|
+:Xác thực người dùng qua HCMUT_SSO;
+:Truy xuất thông tin từ HCMUT_DATACORE;
+
+if (Thẻ hợp lệ & Còn hạn?) then (Có)
+    if (Chuỗi vào/ra hợp lệ?) then (Có)
+        :Ghi log thông cổng vào hệ thống;
+        :Cập nhật số lượt & trạng thái \n(vào HCMUT_DATACORE);
+        
+        |Hệ thống IoT|
+        :Servor motor mở Barrier;
+        
+        |Thành viên|
+        :Di chuyển phương tiện qua cổng;
+        
+        |Hệ thống IoT|
+        :Cảm biến nhận diện phương tiện đi qua;
+        :Servor motor đóng Barrier;
+    else (Không - Bất thường)
+        |Hệ thống điều khiển|
+        :Ghi log lỗi chuỗi nhập/xuất;
+        :Phát cảnh báo cho nhân viên túc trực;
+    endif
+else (Không - Lỗi/Hết hạn)
+    |Hệ thống điều khiển|
+    :Từ chối thông cổng;
+    :Phát cảnh báo cho nhân viên;
+    
+    |Hệ thống IoT|
+    :Hiển thị lỗi trên màn hình tại cổng;
+endif
+
+|Thành viên|
+stop
+@enduml

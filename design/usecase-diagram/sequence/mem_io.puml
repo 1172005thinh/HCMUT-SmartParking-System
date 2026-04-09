@@ -1,0 +1,47 @@
+@startuml
+!pragma teoz true
+skinparam ParticipantPadding 10
+skinparam BoxPadding 10
+
+actor "Thành viên" as Member
+participant "Đầu đọc RFID\n& Màn hình" as IoT_RFID
+participant "Hệ thống\nĐiều khiển" as Sys
+participant "HCMUT_SSO" as SSO
+participant "HCMUT_DATACORE" as DataCore
+participant "Barrier & Cảm biến" as IoT_Barrier
+
+Member -> IoT_RFID : 1. Chạm thẻ nhận diện ID
+IoT_RFID -> Sys : 2. Gửi dữ liệu thẻ
+Sys -> SSO : 2. Xác thực người dùng
+SSO --> Sys : Trả kết quả xác thực
+Sys -> DataCore : 3. Truy xuất thông tin & quyền bãi đỗ
+DataCore --> Sys : Trả thông tin
+
+Sys -> Sys : 4. Xác thực điều kiện thông cổng\n(Hạn sử dụng, chuỗi vào/ra)
+
+alt Trường hợp hợp lệ
+    Sys -> Sys : 5. Ghi log thông cổng
+    Sys -> DataCore : 6. Cập nhật tổng lượt & trạng thái nhập xuất
+    Sys -> IoT_Barrier : 7. Gửi lệnh mở cổng
+    IoT_Barrier --> Member : Barrier mở
+    Member -> IoT_Barrier : Di chuyển phương tiện qua
+    IoT_Barrier -> Sys : 8. Cảm biến báo phương tiện đã qua
+    Sys -> IoT_Barrier : 9. Gửi lệnh đóng cổng
+    
+    opt Lỗi Barrier (mở >15s)
+        IoT_Barrier -> Sys: Báo kẹt vật thể
+        Sys -> Sys: Phát cảnh báo
+    end
+
+else Ngoại lệ: Thẻ không hợp lệ / Hết hạn
+    Sys -> Sys : Từ chối thông cổng, phát cảnh báo
+    Sys -> IoT_RFID : Hiện lỗi trên màn hình (Barrier vẫn đóng)
+
+else Ngoại lệ: Chuỗi nhập xuất bất thường
+    Sys -> Sys : Ghi lại log, phát cảnh báo cho nhân viên
+
+else Ngoại lệ: Lỗi kết nối hệ thống
+    Sys -> Sys : Chuyển sang dữ liệu Local\n(Chế độ Manual)
+end
+
+@enduml
