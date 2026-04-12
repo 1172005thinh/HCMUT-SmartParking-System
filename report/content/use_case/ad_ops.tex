@@ -1,0 +1,115 @@
+\documentclass[12pt, a4paper]{article}
+
+% Khai báo các thư viện hỗ trợ tiếng Việt
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% Khai báo thư viện căn chỉnh lề (giúp bảng rộng không bị tràn trang)
+\usepackage[margin=2cm]{geometry}
+
+% Khai báo thư viện hỗ trợ định dạng cột trong bảng
+\usepackage{array}
+
+\begin{document}
+
+
+\begin{table}[htpb]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\textbf{Use-case ID} & ad\_ops \\ \hline
+\textbf{Use-case name} & Quản lý nghiệp vụ hệ thống bãi xe \\ \hline
+\textbf{Use-case overview} & Cung cấp điểm truy cập tập trung để Quản trị viên (Admin) thực hiện các tác vụ quản lý, điều hành hệ thống như cấu hình tài chính, tra cứu lịch sử hoạt động. \\ \hline
+\textbf{Actors} & Quản trị viên. \\ \hline
+\textbf{Preconditions} & Quản trị viên đã đăng nhập vào hệ thống qua kênh xác thực HCMUT\_SSO. \\ \hline
+\textbf{Trigger} & Quản trị viên truy cập vào trang quản trị (Dashboard) của hệ thống bãi xe. \\ \hline
+\textbf{Steps} & 
+1. Hệ thống xác thực quyền hạn của tài khoản. \newline
+2. Hệ thống hiển thị giao diện Dashboard với các menu chức năng quản trị. \newline
+3. Quản trị viên lựa chọn một phân hệ nghiệp vụ cụ thể (Ví dụ: "Quản lý tài chính" hoặc "Tra cứu ra vào"...). \\ \hline
+\textbf{Post conditions} & Hệ thống điều hướng Quản trị viên đến đúng chức năng nghiệp vụ đã chọn để tiến hành các thao tác chi tiết. \\ \hline
+\textbf{Exception flow} & 
+1. Lỗi phân quyền (Xảy ra tại Bước 1): \newline
+- Nếu tài khoản đăng nhập không có quyền Admin, hệ thống từ chối truy cập. \newline
+- Hệ thống hiển thị thông báo "Bạn không có quyền truy cập chức năng này" và điều hướng về trang chủ. \\ \hline
+\end{tabular}
+\caption{Đặc tả Use-case: ad\_ops}
+\label{tab:uc_ad_ops}
+\end{table}
+
+
+\begin{table}[htpb]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\textbf{Use-case ID} & ad\_pri \\ \hline
+\textbf{Use-case name} & Thay đổi chi phí của 1 chu kì gửi xe \\ \hline
+\textbf{Use-case overview} & Giúp quản trị viên thay đổi các chi phí gửi xe của  chu kì gửi đối với các đối tượng nhất định như học viên, giảng viên , khách vãng lai. \\ \hline
+\textbf{Actors} & Quản trị viên. \\ \hline
+\textbf{Preconditions} & Quản trị viên đã đăng nhập vào hệ thống qua kênh xác thực HCMUT\_SSO \\ \hline
+\textbf{Trigger} & Quản trị viên truy cập vào menu "Quản lý tài chính" trong menu "Quản trị viên" và chọn "Cấu hình chính sách giá" \\ \hline
+\textbf{Steps} & 
+1. Admin nhấp vào menu "Quản lý tài chính" và chọn tính năng "Cấu hình chính sách giá" trên giao diện trang quản trị. \newline
+2. Hệ thống truy xuất dữ liệu và hiển thị danh sách các chính sách giá/quyền lợi hiện hành được phân loại theo từng nhóm người dùng (Người học, Cán bộ - Nhân viên, Khách tạm thời). \newline
+3. Admin nhấp vào nút "Chỉnh sửa" cạnh nhóm đối tượng cần thay đổi mức phí (ví dụ: Giảng viên). \newline
+4. Hệ thống hiển thị form nhập liệu chứa các thông số giá hiện tại. \newline
+5. Admin nhập các thông số mức giá mới.\newline
+6. Admin nhấn nút "Lưu cập nhật". \newline
+7. Hệ thống hiển thị thông báo "Cập nhật chính sách giá thành công" và quay trở lại màn hình danh sách ở Bước 2.\\ \hline
+\textbf{Post conditions} &  Chính sách giá mới được cập nhật thành công vào cơ sở dữ liệu và sẵn sàng áp dụng cho các chu kỳ tính toán phí tiếp theo.\\ \hline
+\textbf{Exception flow} & 
+1. Dữ liệu nhập vào không hợp lệ (Xảy ra tại Bước 7): \newline
+- Hệ thống phát hiện dữ liệu nhập vào bị bỏ trống ở trường bắt buộc hoặc chứa ký tự không hợp lệ (ví dụ: mức phí là số âm). \newline
+- Hệ thống chặn việc lưu dữ liệu, giữ nguyên các thông tin đã nhập trên form. \newline
+- Hệ thống hiển thị thông báo lỗi màu đỏ ngay bên dưới trường dữ liệu bị sai: Vui lòng nhập mức giá hợp lệ (số lớn hơn hoặc bằng 0). \newline
+- Kịch bản quay lại Bước 5 của luồng chính để Admin chỉnh sửa lại \newline
+2. Admin hủy bỏ thao tác (Xảy ra tại bất kỳ bước nào từ Bước 3 đến Bước 5): \newline
+- Admin nhấn nút Hủy bỏ hoặc nhấp vào menu khác. \newline
+- Hệ thống cảnh báo nếu có dữ liệu đang nhập dở: Bạn có chắc chắn muốn rời đi? Các thay đổi chưa được lưu sẽ bị mất. \newline
+- Nếu Admin chọn Đồng ý, hệ thống hủy toàn bộ phiên làm việc hiện tại và chuyển hướng theo yêu cầu của Admin, không lưu bất kỳ thay đổi nào.\\ \hline
+\end{tabular}
+\caption{Đặc tả Use-case: Ad\_pri}
+\label{tab:uc_mem_pay}
+\end{table}
+
+
+
+
+\begin{table}[htpb]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\textbf{Use-case ID} & ad\_his \\ \hline
+\textbf{Use-case name} & Xem Lịch sử Hoạt động (View Parking Activity Logs) \\ \hline
+\textbf{Use-case overview} & Giúp quản trị viên tra cứu, trích xuất dữ liệu về các lượt xe ra/vào bãi, tình trạng thẻ định danh, và các giao dịch phát sinh. Dữ liệu này giúp xử lý các sự cố mất xe, quên quẹt thẻ, hoặc để kiểm toán tài chính.. \\ \hline
+\textbf{Actors} & Quản trị viên. \\ \hline
+\textbf{Preconditions} & Quản trị viên đã đăng nhập vào hệ thống qua kênh xác thực HCMUT\_SSO \\ \hline
+\textbf{Trigger} & Quản trị viên truy cập vào menu "Tra cứu ra vào" trên mục "Quản trị viên" \\ \hline
+\textbf{Steps} & 
+1. Admin nhấp vào menu "Tra cứu ra vào". \newline
+2. Hệ thống hiển thị màn hình tra cứu với các trường bộ lọc (Filter) cơ bản và tự động load danh sách lịch sử của ngày hiện tại (Today). \newline
+3. Admin nhập các tiêu chí tìm kiếm vào bộ lọc, ví dụ: Khoảng thời gian (Từ ngày - Đến ngày), mã số định danh (Mã số sinh viên/Cán bộ), vị trí cổng (Cổng 1, Cổng 2...), trạng thái (Vào bãi, Ra bãi, Cảnh báo lỗi). \newline
+4. Admin nhấn nút Tìm kiếm (hoặc Áp dụng) \newline
+5. Hệ thống kết nối cơ sở dữ liệu, truy xuất các bản ghi khớp với điều kiện.\newline
+6. Hệ thống hiển thị kết quả dưới dạng bảng phân trang (pagination), bao gồm các thông tin: Thời gian, Mã định danh, Loại người dùng, Vị trí cổng, và Trạng thái. \newline
+7. Hệ thống hiển thị thông báo "Cập nhật chính sách giá thành công" và quay trở lại màn hình danh sách ở Bước 2.\\ \hline
+\textbf{Post conditions} & Quản trị viên xem được danh sách lịch sử hoạt động chính xác theo tiêu chí tìm kiếm.\\ \hline
+\textbf{Exception flow} & 
+1. Không tìm thấy dữ liệu (Xảy ra tại Bước 5): \newline
+- Hệ thống truy vấn nhưng không có bản ghi nào khớp với tiêu chí tìm kiếm của tác nhân. \newline
+- Hệ thống hiển thị thông báo trên màn hình: "Không tìm thấy lịch sử hoạt động nào phù hợp với điều kiện tìm kiếm" \newline
+- Hệ thống giữ nguyên các điều kiện đã nhập ở Bước 3 để tác nhân dễ dàng điều chỉnh lại. \newline
+2. Lỗi kết nối hoặc dữ liệu không nhất quán từ IoT Gateway (Xảy ra tại Bước 5): \newline
+- Nếu có sự cố như mất kết nối gateway hoặc dữ liệu bị trễ, một số bản ghi ra/vào có thể bị thiếu thông tin hoặc hiển thị trạng thái Unknown (Không xác định). \newline
+- Hệ thống vẫn hiển thị các bản ghi hiện có, nhưng đánh dấu cảnh báo (highlight màu vàng/đỏ) ở các dòng dữ liệu bị lỗi/thiếu để nhân viên vận hành biết và xử lý thủ công.\\ \hline
+\end{tabular}
+\caption{Đặc tả Use-case: Ad\_his}
+\label{tab:uc_mem_pay}
+\end{table}
+
+
+\end{document}

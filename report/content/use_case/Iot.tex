@@ -1,0 +1,44 @@
+\documentclass[12pt, a4paper]{article}
+
+% Khai báo các thư viện hỗ trợ tiếng Việt
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% Khai báo thư viện căn chỉnh lề (giúp bảng rộng không bị tràn trang)
+\usepackage[margin=2cm]{geometry}
+
+% Khai báo thư viện hỗ trợ định dạng cột trong bảng
+\usepackage{array}
+
+\begin{document}
+
+\begin{table}[htpb]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\textbf{Use-case ID} & iot \\ \hline
+\textbf{Use-case name} & Cập nhật trạng thái bãi đỗ xe theo thời gian thực \\ \hline
+\textbf{Use-case overview} & Hệ thống tự động ghi nhận liên tục tín hiệu từ mạng lưới cảm biến IoT để cập nhật tức thời tình trạng có xe/trống, giúp duy trì cái nhìn gần thời gian thực về tình trạng chỗ đậu xe. \\ \hline
+\textbf{Actors} & Hệ thống IoT (Cảm biến \& Gateway). \\ \hline
+\textbf{Preconditions} & 
+1. Hệ thống máy chủ đang hoạt động và sẵn sàng nhận kết nối. \newline
+2. Hạ tầng IoT (Cảm biến, Gateway) được cấp nguồn, đã kết nối mạng và hoạt động ổn định. \newline
+3. Sơ đồ bãi đỗ (vị trí tương ứng của từng cảm biến) đã được thiết lập trong cơ sở dữ liệu. \\ \hline
+\textbf{Trigger} & Xảy ra khi có sự thay đổi trạng thái vật lý tại bãi đỗ (có xe tiến vào vị trí hoặc rời đi) khiến cảm biến bị kích hoạt, hoặc Gateway định kỳ gửi luồng dữ liệu (stream) trạng thái toàn bãi. \\ \hline
+\textbf{Steps} & 
+1. Cảm biến tại vị trí đỗ xe phát hiện sự thay đổi trạng thái (Trống $\rightarrow$ Có xe, hoặc Có xe $\rightarrow$ Trống) và gửi ngay gói tin về hệ thống trung tâm thông qua IoT Gateway. \newline
+2. Hệ thống tiếp nhận gói tin, phân tích định danh (ID) của cảm biến để đối chiếu với sơ đồ bãi đỗ. \newline
+3. Hệ thống cập nhật ngay lập tức trạng thái của vị trí tương ứng vào cơ sở dữ liệu. \newline
+4. Hệ thống tính toán lại tổng số chỗ trống hiện tại. \newline
+5. Hệ thống đồng bộ (push) dữ liệu mới nhất lên các bảng hiển thị điện tử ngoài bãi xe và giao diện giám sát của ban quản lý. \\ \hline
+\textbf{Post conditions} & Cơ sở dữ liệu, màn hình giám sát và bảng LED điều hướng luôn phản ánh chính xác trạng thái và số lượng chỗ trống ở thời điểm hiện tại.\\ \hline
+\textbf{Exception flow} & - \textbf{Lỗi cục bộ tại cảm biến/Gateway:} Nếu hệ thống phát hiện mất luồng tín hiệu hoặc nhận dữ liệu không nhất quán từ một node mạng, hệ thống tự động đánh dấu vị trí đó là "Không xác định/Bảo trì", ghi log cảnh báo cho bộ phận vận hành và vẫn tiếp tục xử lý dữ liệu từ các node khác.\newline
+- \textbf{Mất kết nối toàn bộ hệ thống IoT:} Hệ thống tạm ngưng cập nhật, đóng băng trạng thái hiển thị ở thời điểm nhận gói tin cuối cùng và phát tín hiệu cảnh báo đỏ "Mất kết nối hạ tầng IoT" trên màn hình điều hành. \\ \hline
+\end{tabular}
+\caption{Đặc tả Use-case: IoT (Thời gian thực)}
+\label{tab:uc_iot}
+\end{table}
+
+\end{document}
