@@ -1,1 +1,52 @@
+# --------------------------------------------------
+# LaTeX temporary/build artifacts
+# --------------------------------------------------
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.lol
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+*.nav
+*.snm
+*.vrb
+
+# Latexmk / arara / generic build folders
+_minted*
+latex.out/
+build/
+out/
+
+# --------------------------------------------------
+# Bibliography tools
+# --------------------------------------------------
+*.acn
+*.acr
+*.alg
+
+# --------------------------------------------------
+# Editor / OS local files
+# --------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# VS Code local settings
+.vscode/
+
 /out
