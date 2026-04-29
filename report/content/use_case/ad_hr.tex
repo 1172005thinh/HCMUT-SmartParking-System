@@ -1,0 +1,67 @@
+\documentclass[15pt, a4paper]{article}
+
+% Khai báo các thư viện hỗ trợ tiếng Việt
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% Khai báo thư viện căn chỉnh lề (giúp bảng rộng không bị tràn trang)
+\usepackage[margin=2cm]{geometry}
+
+% Khai báo thư viện hỗ trợ định dạng cột trong bảng
+\usepackage{array}
+
+\begin{document}
+
+\begin{table}[htpb]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\hline
+\textbf{Use-case ID} & ad\_hr \\ \hline
+\textbf{Use-case name} & Quản lý nhân sự và hành chính bãi đỗ xe \\ \hline
+\textbf{Use-case overview} & Hỗ trợ quản lý nhân sự vận hành bãi xe (chấm công, phân ca, đánh giá hiệu suất) và quản lý hành chính (báo cáo tài chính, hợp đồng, chính sách). \\ \hline
+\textbf{Actors} & Nhân sự bãi xe, quản trị viên, hệ thống điều khiển. \\ \hline
+\textbf{Preconditions} & 
+1. Hệ thống quản lý nhân sự và hành chính đang hoạt động bình thường. \newline
+2. Nhân sự đã được đăng ký trong hệ thống. \newline
+3. Chính sách vận hành và biểu phí đã được cấu hình bởi quản trị viên. \\ \hline
+\textbf{Trigger} & 
+1. Nhân sự đăng nhập để chấm công và nhận ca trực. \newline
+2. Quản trị viên yêu cầu xuất báo cáo hoặc cập nhật chính sách. \\ \hline
+\textbf{Steps} & 
+1. Nhân sự đăng nhập hệ thống để chấm công và nhận ca trực. \newline
+2. Hệ thống điều khiển ghi nhận ca trực, phân ca và lưu dữ liệu nhân sự. \newline
+3. Nhân sự theo dõi camera, cảm biến và tiếp nhận yêu cầu hỗ trợ từ khách. \newline
+4. Hệ thống IoT thu thập dữ liệu cảm biến, phát hiện sự cố và gửi trạng thái cho hệ thống điều khiển. \newline
+5. Hệ thống điều khiển quản lý hợp đồng, hồ sơ nhân sự; đồng thời thống kê lượt vào/ra và doanh thu. \newline
+6. Quản trị viên truy cập hệ thống để xem báo cáo hành chính, đánh giá hiệu suất nhân sự. \newline
+7. Quản trị viên cấu hình chính sách phí, ngoại lệ và phê duyệt báo cáo tài chính. \newline
+8. Hệ thống điều khiển lưu trữ và áp dụng chính sách mới. \\ \hline
+\textbf{Post conditions} & 
+1. Dữ liệu nhân sự và hành chính được lưu trữ đầy đủ. \newline
+2. Báo cáo tài chính và vận hành được xuất ra. \newline
+3. Chính sách mới được áp dụng cho hệ thống. \\ \hline
+\textbf{Exception flow} & 
+1. Nhân sự không đăng nhập được (lỗi tài khoản, hệ thống): 
+\begin{itemize}
+    \item Hệ thống hiển thị thông báo lỗi.
+    \item Quản trị viên hỗ trợ khôi phục tài khoản.
+\end{itemize}
+2. Dữ liệu cảm biến hoặc camera không khả dụng:
+\begin{itemize}
+    \item Hệ thống cảnh báo lỗi thiết bị.
+    \item Nhân sự kiểm tra thực tế và cập nhật thủ công.
+\end{itemize}
+3. Báo cáo tài chính không thể xuất (lỗi hệ thống):
+\begin{itemize}
+    \item Hệ thống ghi log lỗi.
+    \item Quản trị viên yêu cầu xuất lại sau khi khắc phục.
+\end{itemize}
+\\ \hline
+\end{tabular}
+\caption{Đặc tả Use-case: Quản lý nhân sự và hành chính bãi đỗ xe}
+\label{tab:uc_staff_admin}
+\end{table}
+
+\end{document}
