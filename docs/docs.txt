@@ -1,0 +1,386 @@
+Software Engineering - 252
+
+Project description
+
+Page 1/6
+
+Smart Parking System for University Campus (IoT-SPMS1)
+Ho Chi Minh City University of Technology – Vietnam National University (HCMUT)
+accommodates a large number of daily parking activities involving undergraduate students, graduate
+students, doctoral candidates, faculty members, staff, and external visitors. With the increasing
+density of vehicles and limited parking capacity, current parking operations face challenges such as
+congestion at entry and exit points, inefficient utilization of parking spaces, limited real-time visibility
+of availability, and fragmented parking fee management. To address these challenges, the university
+intends to develop a Smart Parking Management System leveraging Internet of Things (IoT)
+technologies and modern software engineering principles. The system aims to support automatic
+access control, real-time monitoring of parking spaces, dynamic guidance within the campus, and
+integrated billing mechanisms, while operating reliably under real-world constraints such as high
+concurrency, intermittent connectivity, and heterogeneous user groups.
+The proposed system shall support multiple categories of users, including learners
+(students, graduate students, & doctoral candidates), faculty members, staff, and temporary
+visitors. University members access the parking facilities using their official identification cards,
+which are integrated with the campus infrastructure, enabling automatic entry and exit recording.
+Parking activities of learners are accumulated over a predefined billing period, after which the system
+automatically computes the corresponding fees and initiates payment requests through BKPay, the
+university’s internal payment platform. Parking privileges and pricing policies for faculty members
+and staff may vary depending on institutional regulations and must be configurable by authorized
+administrators. In addition to authenticated users, the system must accommodate visitors and
+exceptional cases, such as users who temporarily do not possess their identification cards. In such
+situations, the system provides a temporary access mechanism at the entry gate, allowing the
+issuance of parking tickets and the management of parking sessions independent of centralized
+authentication services.
+From an IoT perspective, the parking infrastructure is composed of multiple parking slots,
+each associated with a sensor responsible for detecting occupancy status. Sensor data is collected
+and transmitted through local IoT gateways to the central system using standard communication
+protocols. The system is required to maintain a near real-time view of parking availability while being
+resilient to sensor malfunctions, gateway disconnections, and delayed or inconsistent data. To
+improve traffic flow and user experience within the campus, the system must support automatic
+guidance mechanisms through electronic signage installed at parking entrances and key
+intersections. These signage devices dynamically display parking availability states, such as
+available, nearly full, or full, and may provide directional information to alternative parking zones
+based on real-time system data.
+The smart parking system must integrate with HCMUT’s existing technological infrastructure.
+Authentication for university members shall be handled through HCMUT_SSO, while personal and
+role-related information is synchronized from HCMUT_DATACORE in a read-only manner to ensure
+data consistency and security. Role-based access control must be enforced to support different
+operational responsibilities, including end users, parking operators, and system administrators. All
+parking activities and financial transactions must be properly logged to ensure traceability and
+support auditing and reporting needs.
+
+1
+
+IoT-based Smart Parking Management System
+
+Software Engineering - 252
+
+Project description
+
+Page 2/6
+
+Hệ thống Quản lý Bãi đỗ xe Thông minh cho Khuôn viên Trường Đại học
+Trường Đại học Bách Khoa – Đại học Quốc gia TP. Hồ Chí Minh (HCMUT) mỗi ngày phải phục
+vụ một khối lượng lớn hoạt động gửi xe, bao gồm sinh viên đại học, học viên cao học, nghiên cứu sinh,
+giảng viên, cán bộ – nhân viên và khách vãng lai. Với mật độ phương tiện ngày càng tăng trong khi
+năng lực bãi đỗ xe có hạn, công tác quản lý hiện nay đang đối mặt với nhiều thách thức như ùn tắc tại
+các cổng ra vào, việc khai thác không hiệu quả các chỗ đậu xe, thiếu khả năng quan sát tình trạng chỗ
+trống theo thời gian thực, cũng như việc quản lý phí gửi xe còn phân tán và thiếu đồng bộ. Để giải
+quyết các vấn đề này, nhà trường có kế hoạch xây dựng một Hệ thống Quản lý Bãi đỗ xe Thông minh,
+ứng dụng các công nghệ Internet vạn vật (IoT) cùng với các nguyên lý hiện đại của công nghệ phần
+mềm. Hệ thống hướng tới việc hỗ trợ kiểm soát ra vào tự động, giám sát tình trạng bãi đỗ xe theo thời
+gian thực, điều hướng giao thông nội bộ một cách linh hoạt và tích hợp cơ chế tính phí – thanh toán,
+đồng thời phải hoạt động ổn định trong các điều kiện thực tế như số lượng người dùng lớn, kết nối
+không liên tục và sự đa dạng về nhóm người sử dụng.
+Hệ thống được đề xuất phải hỗ trợ nhiều nhóm người dùng khác nhau, bao gồm người học
+(sinh viên, học viên cao học và nghiên cứu sinh), giảng viên, cán bộ – nhân viên và khách tạm thời.
+Các thành viên của trường sử dụng thẻ định danh chính thức để ra vào bãi xe, thẻ này được tích hợp
+với hạ tầng công nghệ của trường nhằm cho phép ghi nhận tự động các lượt vào và ra. Hoạt động gửi
+xe của người học được hệ thống tổng hợp theo một chu kỳ thanh toán xác định trước, sau đó hệ thống
+tự động tính toán phí tương ứng và khởi tạo yêu cầu thanh toán thông qua BKPay, nền tảng thanh toán
+nội bộ của nhà trường. Quyền lợi gửi xe và chính sách giá đối với giảng viên và cán bộ có thể khác
+nhau tùy theo quy định của từng thời kỳ và cần được cấu hình bởi các quản trị viên có thẩm quyền.
+Bên cạnh các người dùng đã được xác thực, hệ thống cũng phải hỗ trợ khách vãng lai và các trường
+hợp ngoại lệ, chẳng hạn như người dùng tạm thời không mang theo thẻ định danh. Trong những tình
+huống này, hệ thống cung cấp cơ chế truy cập tạm thời tại cổng vào, cho phép phát hành vé gửi xe và
+quản lý các phiên gửi xe độc lập với hệ thống xác thực tập trung.
+Dưới góc độ IoT, hạ tầng bãi đỗ xe bao gồm nhiều chỗ đậu, trong đó mỗi chỗ được gắn với một
+cảm biến có nhiệm vụ phát hiện trạng thái có xe hoặc trống. Dữ liệu từ các cảm biến được thu thập
+và truyền về hệ thống trung tâm thông qua các cổng IoT cục bộ bằng các giao thức truyền thông tiêu
+chuẩn. Hệ thống cần duy trì được cái nhìn gần thời gian thực về tình trạng chỗ đậu xe, đồng thời có
+khả năng chịu lỗi trước các sự cố như cảm biến hỏng, mất kết nối gateway, hoặc dữ liệu bị trễ hay
+không nhất quán. Để cải thiện luồng giao thông và trải nghiệm người dùng trong khuôn viên trường,
+hệ thống phải hỗ trợ các cơ chế điều hướng tự động thông qua các bảng hiển thị điện tử được lắp đặt
+tại cổng bãi xe và các nút giao quan trọng. Các bảng này hiển thị động trạng thái bãi xe như còn chỗ,
+gần đầy hoặc hết chỗ, và có thể cung cấp thông tin chỉ dẫn tới các khu vực đỗ xe thay thế dựa trên dữ
+liệu thời gian thực của hệ thống.
+Hệ thống bãi đỗ xe thông minh phải được tích hợp với hạ tầng công nghệ hiện có của HCMUT.
+Việc xác thực đối với các thành viên trong trường được thực hiện thông qua HCMUT_SSO, trong khi
+thông tin cá nhân và vai trò người dùng được đồng bộ từ HCMUT_DATACORE theo cơ chế chỉ đọc
+nhằm đảm bảo tính nhất quán và an toàn dữ liệu. Cơ chế phân quyền dựa trên vai trò phải được áp
+dụng để hỗ trợ các trách nhiệm vận hành khác nhau, bao gồm người dùng cuối, nhân viên vận hành
+bãi xe và quản trị viên hệ thống. Tất cả các hoạt động gửi xe và giao dịch tài chính phải được ghi nhận
+đầy đủ để đảm bảo khả năng truy vết, phục vụ công tác kiểm tra, thống kê và báo cáo.
+
+Software Engineering - 252
+
+Project description
+
+Page 3/6
+
+Project guidelines
+1. Team & teamwork
+a. Teams are formed randomly by the lecturer.
+b. Each team member has to perform all works, including requirement specification,
+architectural design and detail design.
+c. At the end of the semester, team members have to give feedback to each others and
+evaluation the individual and team performace.
+2. Team meeting & meeting minus
+a. Team meetings should be carried out one a week
+b. The first meeting should be focus on the team communication, commitment, common
+problems/risks and solving mechanisms …
+c. Meeting minuses are used to keep track of all works.
+3. Submissions
+a. There are 04 individual documents:
+i. #1- requirement document: Functional/Non-Functional requirement and Use-case
+diagram.
+ii. #2- requirement document: Sequence diagrams, Activity diagrams & UI design (Statechart diagrams: bonus) .
+iii. #3-design document: Architectural design, Class diagram, Class and Method
+design/desc.
+iv. #4-finall document.
+b. All submissions are in .doc/.docx/.pdf format.
+c. Deadlines will be announced on the LMS site.
+4. Demonstration
+Develop MVP. Demonstrate the whole project.
+You are free to choose the programming language (HTML, Javascript, Python, C#, etc). It is not
+required to implement a database in the backend. Data can be hard coded in code files.
+(a presentation slide shall be prepared. Each team should practice the demonstrations many times
+in advance. The presentation should be straight to the point, contains lessons learned for the team.
+The demonstration should be prepared, correct, brief and has good quality.)
+
+Software Engineering - 252
+
+Project description
+
+Page 4/6
+
+Project Submission Detail
+1. Submission #1 detail
+Students have to submit the following contents:
+- Project details specification (group work):
+Students are required to thoroughly describe the project context based on the basic information
+provided. This includes clearly identifying the relevant stakeholders, understanding their roles and
+expectations, and outlining the objectives and scope of the project. The goal is to ensure a
+comprehensive understanding of the project’s context, its key players, and its boundaries. (group
+work)
+- Functional requirements:
++ Use-case diagram for the whole system (group work)
++ Use-case detail/scenario for use-case the student is in-charged (individual work)
++ Other non-interactive functional requirement (bonus)
+- Non-functional requirements:
++ General non-functional requirements for the whole system (group work)
+2. Submission #2 detail
+Students have to submit the following contents:
+- UI design: Mockup (group work)
+- Sequence diagrams (individual work)
+- Activity diagrams (individual work)
+- State-chart diagrams (bonus)
+3. Submission #3 detail
+Students have to submit the following contents:
+- Deployment view
+- Development/Implementation view
+- Class diagram and Method descriptions (for all methods in the class diagram).
+- Test case (bonus)
+4. Submission #final
+Students have to submit the following contents by only 01 pdf file:
+- All contents from (#1, #2, #3)
+- A working demonstration (by sequence of screens)
+- A clear statement defining how Generative AI was used (tools, scope, and level of contribution)
+
+Software Engineering - 252
+
+Project description
+
+Page 5/6
+
+Generative AI using
+AI không bị cấm trong quá trình làm bài tập lớn, nhưng sinh viên bắt buộc phải khai báo rõ
+ràng và sử dụng có trách nhiệm. Điểm số cao sẽ dành cho những trường hợp biết tận dụng AI
+như một công cụ hỗ trợ để tìm ý tưởng, tham khảo, sau đó tự phân tích, chỉnh sửa và sáng
+tạo thêm để thể hiện năng lực cá nhân. Ngược lại, điểm số sẽ thấp nếu sinh viên lạm dụng
+AI, sao chép nguyên văn hoặc không nắm được nội dung đã nộp. Việc khai báo minh bạch là
+yêu cầu bắt buộc; mọi hành vi che giấu hoặc gian lận khi sử dụng AI sẽ bị xử lý nghiêm, có
+thể bị trừ điểm nặng hoặc không được chấm bài.
+The use of AI is not prohibited in completing the project; however, students are required to
+declare their usage clearly and act responsibly. High scores will be awarded to those who
+utilize AI as a supporting tool for generating ideas or references, and then demonstrate their
+own understanding by analyzing, refining, and adding original contributions. Conversely, low
+scores will be given if students over-rely on AI, copy content verbatim, or show little
+understanding of their submitted work. Transparent disclosure of AI use is mandatory; any
+attempt to conceal or misrepresent the extent of AI involvement will be considered
+academic misconduct and may result in severe penalties, including significant point
+deductions or rejection of the submission.
+
+Rubric
+No
+1
+2
+3
+4
+
+Content
+Quiz
+Report (Final submission)
+Demonstrate (presentation)
+Final exam
+
+%
+10%
+30%
+10%
+50%
+
+Software Engineering - 252
+
+Project description
+
+Page 6/6
+
+Report - Rubric
+Quest.
+
+Max
+point
+10.0
+
+A few reqs: 3.0
+
+Non-Func
+Req
+
+10.0
+
+A few reqs: 3.0
+
+Use-case
+diagram;
+Desc
+
+10.0
+
+A few Actors and
+use-cases: 3.0
+point
+
+Use-case
+scenario
+
+10.0
+
+Some Wrong
+(tabular) format,
+just a few lines:
+3.0 point
+
++ Complete, only few mistakes: 7.0 point
+
+Simple: 3.0
+
++ general level, more detail;
+only few mistakes: 7.0 – 8.0
+
+Func Req
+
+UI Design
+
+10.0
+
+Rubric
+Basic reqs
+and groups:
+6.0
+
++ more reqs
+and groups:
+8.0
+
+Realistic reqs
+algin with
+project/users:
+10.0
+Basic reqs
+Realistic reqs Has suitable
+and groups:
+algin with
+metrics for
+6.0
+project: 8.0
+evaluation:
+10.0
+All actors and Use-cases: +3.0 point
++ have good relationship
+between actors and ucs: +2 point
++ have description: +2.0 point
+
+Sequence/act
+ivity/statechart diagram
+
+10.0
+
+general level,
+simple/ simple
+analyze: 3.0
+
++ general level, more; only
+few mistakes: 7.0 point
+
+Architecture
+
+10.0
+
+a few component:
+3.0 point
+
+Acceptable:
+6.0 ~ 7.0
+
+Good
+architecture:
+8.0
+
+10.0
+
+Entity class only:
+3.0
+
++ some
+business /
+view
+classes: 6.0
+
++ more
+business /
+view class
+with some
+attributes /
+methods:
+8.0
+
+Class
+diagram
+
+mistake:
+-1.0 ~ 3.0
+
++ Good: 10.0 point
+Realistic
+detailed with
+desc, screen
+flow: 10.0
++ realistic/
+detailed with
+desc: 10.0
+Good
+architecture
+with desc:
+10.0
+realistic
+classes with
+more
+attributes /
+methods:
+10.0
+
++
+bonus
+: 1.0
+
++
+bonus
+: 1.0
+
+(wrong
+symbol,
+name,
+meaning
+, etc)
+
+

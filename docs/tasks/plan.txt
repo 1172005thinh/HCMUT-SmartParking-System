@@ -1,0 +1,12 @@
+Thinh 2.2 backend
+Phong 3.3 <<< b.
+Phuc 1.2 <<< server
+Nguyen 1.1 <<< LATEX + design
+Hoang 3.1 <<< c.
+Son 3.2 <<< a.
+Phu 2.1 Frontend
+
+
+a. user + parking slot
+b. iot + electronic signage
+c. left
