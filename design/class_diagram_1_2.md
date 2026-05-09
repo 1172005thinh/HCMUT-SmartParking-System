@@ -1,0 +1,26 @@
+## User 
+- **Loại lớp:** Abstract (trừu tượng) -> dùng để định nghĩa chung, không tạo đối tượng trực tiếp.
+- **Thuộc tính (Attributes):**
+    - `userId : int` -> mã số định danh duy nhất cho mỗi người dùng.
+    - `name : String` -> tên người dùng.
+    - `email : String` -> địa chỉ email.
+    - `role : String` -> vai trò (Learner, Faculty, Staff, Visitor).
+    - `rfidCardId : String` -> mã thẻ RFID (Visitor có thể thay bằng `ticketId`).
+- **Phương thức (Methods):**
+    - `authenticate()` -> xác thực người dùng khi vào hệ thống.
+    - `getProfile()` -> lấy thông tin hồ sơ người dùng.
+- **Quan hệ kế thừa:**
+    - Các lớp con: `Learner`, `Faculty`, `Staff`, `Visitor` kế thừa từ `User`.
+    - `Visitor` khác biệt vì không có `rfidCardId` mà dùng `ticketId`.
+## ParkingSlot
+- **Loại lớp:** Concrete (cụ thể).
+- **Thuộc tính (Attributes):**
+    - `slotId : int` -> mã số định danh chỗ đỗ xe.
+    - `zone : String` -> khu vực (ví dụ Zone A, Zone B).
+    - `status : Enum {Available, Occupied, Maintenance}` -> trạng thái chỗ đỗ.
+- **Phương thức (Methods):**
+    - `updateStatus(newStatus)` -> cập nhật trạng thái chỗ đỗ.
+    - `getStatus()` -> lấy trạng thái hiện tại.
+- **Quan hệ:**
+    - Một `ParkingSlot` có **một** `IoTSensor` (composition).
+    - Một `ParkingSession` gắn với **một** `ParkingSlot`.
