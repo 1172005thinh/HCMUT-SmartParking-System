@@ -1,22 +1,6 @@
-\documentclass[15pt, a4paper]{article}
-
-% Khai báo các thư viện hỗ trợ tiếng Việt
-\usepackage[utf8]{inputenc}
-\usepackage[T5]{fontenc}
-\usepackage[vietnamese]{babel}
-
-% Khai báo thư viện căn chỉnh lề (giúp bảng rộng không bị tràn trang)
-\usepackage[margin=2cm]{geometry}
-
-% Khai báo thư viện hỗ trợ định dạng cột trong bảng
-\usepackage{array}
-
-\begin{document}
-
-\begin{table}[htpb]
-\centering
-\renewcommand{\arraystretch}{1.4}
-\begin{tabular}{|p{0.25\linewidth}|p{0.7\linewidth}|}
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{|>{\centering\arraybackslash}m{3.5cm}|m{13.2cm}|}
 \hline
 \textbf{Use-case ID} & ad\_hr \\ \hline
 \textbf{Use-case name} & Quản lý nhân sự và hành chính bãi đỗ xe \\ \hline
@@ -60,8 +44,4 @@
 \end{itemize}
 \\ \hline
 \end{tabular}
-\caption{Đặc tả Use-case: Quản lý nhân sự và hành chính bãi đỗ xe}
-\label{tab:uc_staff_admin}
-\end{table}
-
-\end{document}
+\end{adjustbox}
