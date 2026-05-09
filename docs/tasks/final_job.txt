@@ -1,0 +1,3 @@
+1. Phân làm web app -- | figma --> NestJS | BE làm csv Hardcode | -- 2 người - Thịnh, Phú
+2. Làm slide -- | Khoảng 15 - 20 trang | Ít chữ | Powerpoint, Canva... | Bổ sung: Generative AI usage | -- 3 người, Hoàng, Phúc, Phong
+3. Báo cáo -- | Task 1 có minor fix | Task 2 cần ghép | Task 3 standby | Generative AI usage | -- 2 người - Nguyên, Sơn
