@@ -4,8 +4,8 @@
 Trong quá trình xây dựng và hiện thực hệ thống, nhóm đã sử dụng nhiều công cụ hỗ trợ dựa trên trí tuệ nhân tạo cũng như các nền tảng thiết kế nhằm tối ưu hóa hiệu quả làm việc.
 
 \begin{itemize}
-    \item \textbf{Microsoft Copilot, OpenAI ChatGPT, Google Gemini:} Nhóm công cụ kiểm tra tính logic của ý tưởng, chỉnh sửa diễn đạt để đảm bảo văn phong trang trọng, học thuật, đồng thời tham khảo hướng dẫn về cách xây dựng các sơ đồ theo chuẩn UML. Ở giai đoạn hiện thực, các công cụ này còn hỗ trợ tìm kiếm thông tin, đưa ra gợi ý trong việc thiết kế các thành phần (component), phát hiện những lỗi triển khai có thể gây ảnh hưởng đến bố cục giao diện, và đề xuất các phương án sửa đổi phù hợp. Nhờ đó, nhóm có thể nhanh chóng điều chỉnh và hoàn thiện sản phẩm theo đúng kỳ vọng.
-    \item \textbf{Anima, CodeTea:} Nhóm công cụ tạo mã giao diện tĩnh và tạo đường dẫn truy cập hình ảnh. Do hệ thống không triển khai cơ sở dữ liệu và toàn bộ dữ liệu được hardcode ở phía frontend, việc hiển thị hình ảnh cho các giao diện trở thành một yêu cầu quan trọng. Giải pháp cho việc hiển thị được nhóm sử dụng là liên kết đường dẫn đến hình ảnh cần hiển thị. Hai công cụ AI này giúp hiện thực các component một cách nhanh chóng, dù vẫn tồn tại những hạn chế như giao diện tĩnh và có sự khác biệt nhất định so với thiết kế ban đầu, nhưng Anima và CodeTea đã góp phần đáng kể trong việc tiết kiệm thời gian và khối lượng công việc cho nhóm trong giai đoạn hiện thực.
+    \item \textbf{Claude Code, OpenAI ChatGPT, Google Gemini:} Nhóm công cụ kiểm tra tính logic của ý tưởng, chỉnh sửa diễn đạt để đảm bảo văn phong trang trọng, học thuật, đồng thời tham khảo hướng dẫn về cách xây dựng các sơ đồ theo chuẩn UML. Ở giai đoạn hiện thực, các công cụ này còn hỗ trợ tìm kiếm thông tin, đưa ra gợi ý trong việc thiết kế các thành phần (component), phát hiện những lỗi triển khai có thể gây ảnh hưởng đến bố cục giao diện, và đề xuất các phương án sửa đổi phù hợp. Nhờ đó, nhóm có thể nhanh chóng điều chỉnh và hoàn thiện sản phẩm theo đúng kỳ vọng.
+    \item \textbf{Figma:} Nhóm công cụ tạo mã giao diện tĩnh và tạo đường dẫn truy cập hình ảnh. Do hệ thống không triển khai cơ sở dữ liệu và toàn bộ dữ liệu được hardcode ở phía frontend, việc hiển thị hình ảnh cho các giao diện trở thành một yêu cầu quan trọng. Giải pháp cho việc hiển thị được nhóm sử dụng là liên kết đường dẫn đến hình ảnh cần hiển thị. Hai công cụ AI này giúp hiện thực các component một cách nhanh chóng, dù vẫn tồn tại những hạn chế như giao diện tĩnh và có sự khác biệt nhất định so với thiết kế ban đầu, nhưng Anima và CodeTea đã góp phần đáng kể trong việc tiết kiệm thời gian và khối lượng công việc cho nhóm trong giai đoạn hiện thực.
 \end{itemize}
 
 Ứng dụng các công cụ AI đã mang lại nhiều giá trị thiết thực cho dự án, đặc biệt là việc sửa lỗi và hiện thực sản phẩm. Do kế hoạch phân công ban đầu của nhóm còn nặng về phần lý thuyết (xác định chủ đề, phạm vi, xây dựng các diagram) nên thời gian dành cho việc hiện thực sản phẩm bị ảnh hưởng đáng kể. Quá trình triển khai cũng gặp nhiều khó khăn trong việc đồng bộ dữ liệu, bởi nội dung mô tả chưa tạo được sự liên kết chặt chẽ giữa các use case. Trong điều kiện khó khăn đó, thì AI đã hỗ trợ chỉ ra những lỗi thiết kế và vấn đề dữ liệu, từ đó giúp nhóm cải thiện khả năng đồng bộ và hiển thị dữ liệu một cách có hệ thống hơn, dù vẫn phải sử dụng dữ liệu giả lập ở một số giao diện.
@@ -13,22 +13,14 @@ Trong quá trình xây dựng và hiện thực hệ thống, nhóm đã sử d�
 \subsection{Phạm vi và mức độ đóng góp của AI}
 Về phạm vi đóng góp các công cụ AI được sử dụng ở nhiều giai đoạn khác nhau:
 \begin{itemize}
-    \item \textbf{Ở giai đoạn thiết kế:} AI đóng vai trò hướng dẫn nhóm xây dựng các sơ đồ đúng chuẩn và hỗ trợ phát hiện, sửa chữa các lỗi logic trong diagram. Sang
+    \item \textbf{Ở giai đoạn thiết kế:} AI đóng vai trò bổ sung định nghĩa cho các bên liên quan, hướng dẫn nhóm xây dựng các sơ đồ đúng chuẩn và hỗ trợ phát hiện, sửa chữa các lỗi logic trong diagram.
     \item \textbf{Ở đoạn hiện thực giao diện:} AI tiếp tục hỗ trợ nhóm trong việc điều chỉnh bố cục, khắc phục các lỗi logic hiển thị, đồng thời đưa ra giải pháp tạo đường liên kết hình ảnh để hiển thị trực tiếp trên giao diện mà không cần sử dụng cơ sở dữ liệu. 
-    \item \textbf{Trong quá trình viết báo cáo:} AI cũng được sử dụng để chỉnh sửa các lỗi trình bày như chính tả, văn phong, và đề xuất cấu trúc hợp lý cho nội dung báo cáo.
+    \item \textbf{Trong quá trình viết báo cáo:} AI sử dụng để chỉnh sửa các lỗi trình bày như chính tả, văn phong, và đề xuất cấu trúc hợp lý cho nội dung báo cáo.
 \end{itemize}
-Về đóng góp của AI, nổi bật là khả năng hướng dẫn triển khai các giai đoạn dự án, và tìm kiếm, đề xuất sửa lỗi logic các chức năng. Một ví dụ điển hình là chức năng “Ghép lớp thủ công” của điều phối viên:
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=6.0in]{img/Check_Match_funct_ActDiagram.png}
-%     \caption{\textit{Hướng dẫn sửa lỗi logic từ Google Gemini}}
-% \end{figure}
-
-Theo đó, logic ban đầu thiếu thao tác chọn lớp cần ghép nối (thành viên thực hiện chưa xem xét trường hợp mentor có thể mở nhiều hơn một lớp), chỉ thực hiện hai bước chọn mentee và mentor rồi ghép nối, dẫn đến sai lệch trong quy trình. AI đã chỉ ra thiếu sót này, giúp nhóm bổ sung thao tác cần thiết để đảm bảo tính hợp lý của chức năng. Ngoài ra, AI còn hỗ trợ đồng bộ dữ liệu, cải thiện giao diện và nâng cao chất lượng trình bày báo cáo.
 
 Tổng thể, AI đã giúp nhóm tiết kiệm đáng kể thời gian triển khai sản phẩm, giảm khối lượng công việc và nâng cao chất lượng sản phẩm cuối cùng. Mặc dù còn gặp một số hạn chế như: các gợi ý đôi khi chưa chính xác, giao diện sinh ra còn tĩnh và khác biệt nhiều so với thiết kế, đòi hỏi nhóm phải chỉnh sửa lại đáng kể (thậm chí viết lại từ đầu). Dù vậy, những hạn chế này cũng trở thành cơ hội để nhóm rèn luyện khả năng đánh giá, phân tích và điều chỉnh sản phẩm một cách chủ động.
 
-Theo khai báo từ các thành viên trong nhóm, các công cụ AI đóng góp khoảng từ 0 - 50\% nội dung các phần họ đảm nhiệm. Cụ thể với các nội dung báo cáo, các công cụ AI đóng góp khoảng 0 - 30\% (chủ yếu với vai trò tìm kiếm, hướng dẫn cách vẽ các diagram tiêu chuẩn, sửa lỗi logic chức năng); về phần hiện thực sản phẩm, các công cụ như CodeTea, Anima đóng góp từ 10 - 50\% (chủ yếu ở vai trò tạo mã giao diện dự án, tỉ lệ sử dụng AI lớn chủ yếu đến từ các thành viên chưa vững kiến thức nền về các công nghệ triển khai).
+Theo khai báo từ các thành viên trong nhóm, các công cụ AI đóng góp khoảng từ 0 - 50\% nội dung các phần họ đảm nhiệm. Cụ thể với các nội dung báo cáo, các công cụ AI đóng góp khoảng 0 - 30\% (chủ yếu với vai trò tìm kiếm, hướng dẫn cách vẽ các diagram tiêu chuẩn, sửa lỗi logic chức năng); về phần hiện thực sản phẩm, các công cụ như Figma đóng góp từ 10 - 50\% (chủ yếu ở vai trò tạo mã giao diện dự án, tỉ lệ sử dụng AI lớn chủ yếu đến từ các thành viên chưa vững kiến thức nền về các công nghệ triển khai).
 
 \subsection{Cam kết minh bạch và trách nhiệm}
 
