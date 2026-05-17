@@ -1,0 +1,70 @@
+\subsubsection{ParkingSession (Lớp cụ thể)}
+\textbf{Mô tả (Overview):} Lớp đại diện cho một phiên đỗ xe cụ thể của người dùng trong hệ thống. Mỗi phiên ghi nhận thời điểm xe vào, thời điểm xe ra, trạng thái (đang hoạt động, đã hoàn tất, hoặc bị hủy) và tổng phí tích lũy. Lớp này cung cấp các phương thức để bắt đầu, kết thúc phiên đỗ, cũng như tính toán chi phí dựa trên chính sách giá. Nó liên kết trực tiếp với người dùng, chỗ đỗ xe, và có thể phát sinh giao dịch thanh toán.
+\textbf{Thuộc tính:}
+\begin{itemize}[noitemsep]
+  \item \texttt{sessionId : string} -- mã định danh duy nhất cho phiên đỗ xe
+  \item \texttt{userId : string} -- mã định danh người dùng gắn với phiên đỗ xe
+  \item \texttt{entryTime : DateTime} -- thời điểm xe vào khu vực đỗ
+  \item \texttt{exitTime : DateTime} -- thời điểm xe rời khu vực đỗ
+  \item \texttt{status : string} -- trạng thái phiên đỗ (ví dụ: Active, Completed, Cancelled)
+  \item \texttt{accumulatedFee : double} -- tổng phí đỗ xe tính đến thời điểm hiện tại
+\end{itemize}
+
+\textbf{Phương thức:}
+\begin{itemize}[noitemsep]
+  \item \texttt{startSession()} -- bắt đầu một phiên đỗ xe mới
+  \item \texttt{endSession()} -- kết thúc phiên đỗ khi xe rời khỏi khu vực
+  \item \texttt{calculateFee(policy)} -- tính phí đỗ dựa trên chính sách giá
+\end{itemize}
+
+\textbf{Quan hệ:}
+\begin{itemize}[noitemsep]
+  \item Một \texttt{ParkingSession} thuộc về \textbf{một} \texttt{User}
+  \item Một \texttt{ParkingSession} chiếm \textbf{một} \texttt{ParkingSlot}
+  \item Một \texttt{ParkingSession} có thể liên quan đến \textbf{một} \texttt{PaymentTransaction}
+  \item Một \texttt{ParkingSession} sử dụng \texttt{PricingPolicy} để tính phí
+\end{itemize}
+
+\subsubsection{PaymentTransaction (Lớp cụ thể)}
+\textbf{Mô tả (Overview):} Lớp mô tả giao dịch thanh toán phát sinh từ một phiên đỗ xe. Mỗi giao dịch có mã định danh, số tiền, thời điểm thanh toán và trạng thái (chờ xử lý, thành công, thất bại). Lớp này hỗ trợ khởi tạo thanh toán qua hệ thống BKPay và xác minh trạng thái giao dịch. Nó được tạo ra sau khi hệ thống tính phí cho phiên đỗ xe và liên kết trực tiếp với một ParkingSession.
+\textbf{Thuộc tính:}
+\begin{itemize}[noitemsep]
+  \item \texttt{transactionId : string} -- mã định danh duy nhất cho giao dịch thanh toán
+  \item \texttt{sessionId : string} -- mã định danh phiên đỗ xe liên quan
+  \item \texttt{amount : double} -- số tiền cần thanh toán
+  \item \texttt{paymentDate : DateTime} -- thời điểm thực hiện thanh toán
+  \item \texttt{status : string} -- trạng thái thanh toán (ví dụ: Pending, Success, Failed)
+\end{itemize}
+
+\textbf{Phương thức:}
+\begin{itemize}[noitemsep]
+  \item \texttt{initiateBKPay()} -- khởi tạo giao dịch thanh toán qua hệ thống BKPay
+  \item \texttt{verifyPaymentStatus()} -- kiểm tra và xác minh trạng thái thanh toán
+\end{itemize}
+
+\textbf{Quan hệ:}
+\begin{itemize}[noitemsep]
+  \item Một \texttt{PaymentTransaction} liên quan đến \textbf{một} \texttt{ParkingSession}
+  \item Giao dịch được tạo sau khi hệ thống tính phí cho phiên đỗ xe
+\end{itemize}
+
+\subsubsection{PricingPolicy (Lớp cụ thể)}
+\textbf{Mô tả (Overview):} Lớp đại diện cho chính sách giá áp dụng cho từng nhóm người dùng (ví dụ: thành viên, khách). Chính sách bao gồm mã định danh, vai trò áp dụng, mức phí theo giờ và mức phí tối đa trong ngày. Lớp này cung cấp phương thức tính chi phí dựa trên thời gian đỗ xe. Mỗi ParkingSession sẽ sử dụng PricingPolicy để xác định số tiền phải trả, đảm bảo tính linh hoạt theo từng đối tượng người dùng.
+\textbf{Thuộc tính:}
+\begin{itemize}[noitemsep]
+  \item \texttt{policyId : string} -- mã định danh chính sách giá
+  \item \texttt{applicableRole : string} -- vai trò người dùng áp dụng (ví dụ: Member, Visitor)
+  \item \texttt{ratePerHour : double} -- mức phí đỗ xe theo giờ
+  \item \texttt{maxDailyRate : double} -- mức phí tối đa trong ngày
+\end{itemize}
+
+\textbf{Phương thức:}
+\begin{itemize}[noitemsep]
+  \item \texttt{calculateCost(duration)} -- tính chi phí đỗ xe dựa trên thời gian
+\end{itemize}
+
+\textbf{Quan hệ:}
+\begin{itemize}[noitemsep]
+  \item \texttt{PricingPolicy} được \texttt{ParkingSession} sử dụng để tính phí
+  \item Mỗi chính sách có thể áp dụng cho nhóm người dùng khác nhau dựa trên \texttt{applicableRole}
+\end{itemize}
